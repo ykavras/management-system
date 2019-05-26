@@ -1,0 +1,15 @@
+.idea
+/venv
+/static
+__pycache__
+/node_modules
+*.sqlite3
+.sass-cache
+static_files/lib
+static_files/css/style-min.css
+static_files/js/scripts.min.js
+/dist
+businessadmin/local_settings.py
+.DS_Store
+media/
+
