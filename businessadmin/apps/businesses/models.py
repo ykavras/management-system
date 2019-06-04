@@ -28,7 +28,10 @@ class Business(models.Model):
 class StudentQualification(models.Model):
     period_choices = (('1', 'P.tesi, Salı, Çarşamba'), ('2', 'Çarşamba, Perşembe, Cuma'))
     group = models.CharField(verbose_name='Grup', choices=(('Yaz', 'Yaz'), ('Kış', 'Kış')), max_length=3)
-    period = models.CharField(verbose_name='Haftalık Periot', choices=period_choices, max_length=1)
+    period = models.CharField(verbose_name='Haftalık Periot', choices=period_choices, max_length=1, null=True,
+                              blank=True)
+    start_date = models.DateField(verbose_name='Başlama Tarihi', null=True, blank=True)
+    finish_date = models.DateField(verbose_name='Bitiş Tarihi', null=True, blank=True)
     piece = models.PositiveSmallIntegerField(verbose_name='Öğrenci Sayısı')
     branch = models.ForeignKey('branchs.Branch', verbose_name='Dal')
     qualifications = models.TextField(verbose_name='Nitelikler', null=True, blank=True)
