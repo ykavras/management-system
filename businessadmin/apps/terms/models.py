@@ -13,4 +13,4 @@ class Term(models.CharField):
         return self.name
 
     def set_as_archive(self):
-        self.active = True
+        self.archive = True
