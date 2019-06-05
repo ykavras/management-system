@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Business, Sector, StudentQualification
+
+admin.site.register(Business)
+admin.site.register(Sector)
+admin.site.register(StudentQualification)
