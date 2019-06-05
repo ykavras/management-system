@@ -16,6 +16,7 @@ class Business(models.Model):
     authorized_person = models.CharField(verbose_name='Yetkili Kişi Adı', max_length=255)
     email = models.EmailField()
     phone = models.CharField(verbose_name='Telefon Numarası', max_length=255)
+    passive = models.BooleanField(verbose_name='Pasif', default=False)
 
     class Meta:
         verbose_name = 'İşletme'
