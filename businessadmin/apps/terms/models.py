@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Term(models.CharField):
+class Term(models.Model):
     name = models.CharField(verbose_name='Adı', max_length=255, help_text='Örnek: "2019 - 2020" ')
     archive = models.BooleanField(verbose_name='Arşivlensin mi?', default=False)
 
