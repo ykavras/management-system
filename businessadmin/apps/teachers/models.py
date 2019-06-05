@@ -14,4 +14,4 @@ class Teacher(models.Model):
         return self.type == 'Chief'
 
     def __str__(self):
-        return self.user.get_full_name()
+        return self.member.user.get_full_name()
