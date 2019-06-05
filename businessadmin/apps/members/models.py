@@ -8,7 +8,7 @@ class Member(models.Model):
         ('Student', 'Student'),
         ('Business', 'Business')
     )
-    user = models.OneToOneField('users.User', verbose_name='Kullanıcı', on_delete=models.PROTECT,
+    user = models.OneToOneField('users.User', verbose_name='Kullanıcı', on_delete=models.CASCADE,
                                 related_name='member')
     type = models.CharField(max_length=15, verbose_name='Tip', choices=types)
     student = models.OneToOneField('students.Student', on_delete=models.CASCADE, related_name='member', null=True,
