@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Department(models.Model):
-    name = models.CharField(verbose_name='Adı', max_length=255)
+    name = models.CharField(verbose_name='Bölüm Adı', max_length=255)
 
     class Meta:
         verbose_name = 'Bölüm'
@@ -13,9 +13,9 @@ class Department(models.Model):
 
 
 class Branch(models.Model):
-    department = models.ForeignKey(Department, models.PROTECT, related_name='branchs')
+    department = models.ForeignKey(Department, models.PROTECT, related_name='branchs', verbose_name='Bölüm')
     name = models.CharField(verbose_name='Adı', max_length=255)
-    short_name = models.CharField(verbose_name='Kısaltılmışi', max_length=10)
+    short_name = models.CharField(verbose_name='Kısaltılmışı', max_length=10)
 
     class Meta:
         verbose_name = 'Dal'
