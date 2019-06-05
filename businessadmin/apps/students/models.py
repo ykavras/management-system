@@ -2,8 +2,9 @@ from django.db import models
 
 
 class Student(models.Model):
-    term = models.ForeignKey('terms.Term', verbose_name='Dönem', on_delete=models.CASCADE, related_name='students')
+    member = models.OneToOneField('members.Member', on_delete=models.PROTECT, related_name='student')
     number = models.PositiveIntegerField(verbose_name='Okul Numarası')
+    term = models.ForeignKey('terms.Term', verbose_name='Dönem', on_delete=models.CASCADE, related_name='students')
     klass = models.ForeignKey('branchs.Klass', on_delete=models.CASCADE, related_name='students', verbose_name='Sınıf')
 
     class Meta:

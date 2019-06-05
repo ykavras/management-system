@@ -16,6 +16,8 @@ class Business(models.Model):
     email = models.EmailField()
     phone = models.CharField(verbose_name='Telefon Numarası', max_length=255)
     passive = models.BooleanField(verbose_name='Pasif', default=False)
+    manager = models.OneToOneField('members.Member', on_delete=models.PROTECT, related_name='business',
+                                   verbose_name='Yetkili')
 
     class Meta:
         verbose_name = 'İşletme'

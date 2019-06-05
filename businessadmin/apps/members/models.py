@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+
 class Member(models.Model):
     types = (
         ('Chief', 'Chief'),
@@ -14,13 +15,9 @@ class Member(models.Model):
     user = models.OneToOneField(User, verbose_name='Kullanıcı', on_delete=models.CASCADE,
                                 related_name='member')
     type = models.CharField(max_length=15, verbose_name='Tip', choices=types)
-    student = models.OneToOneField('students.Student', on_delete=models.CASCADE, related_name='member', null=True,
-                                   blank=True)
-    business = models.OneToOneField('businesses.Business', on_delete=models.CASCADE, related_name='member', null=True,
-                                    blank=True)
 
     def __str__(self):
-        return self.user.get_full_name()
+        return self.user.get_full_name() if self.user.get_full_name() else self.user.username
 
     class Meta:
         verbose_name = 'Kullanıcı'
