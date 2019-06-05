@@ -2,11 +2,12 @@ from django.db import models
 
 
 class Student(models.Model):
-    user = models.OneToOneField('users.User', on_delete=models.CASCADE, related_name='student')
+    number = models.PositiveIntegerField(verbose_name='Okul Numarası')
+    klass = models.ForeignKey('branchs.Klass', on_delete=models.CASCADE, related_name='students', verbose_name='Sınıf')
 
     class Meta:
         verbose_name = 'Öğrenci'
         verbose_name_plural = 'Öğrenciler'
 
     def __str__(self):
-        return self.user.get_full_name()
+        return self.member.user.get_full_name()
