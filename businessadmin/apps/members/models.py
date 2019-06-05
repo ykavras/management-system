@@ -1,5 +1,8 @@
 from django.db import models
 
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class Member(models.Model):
     types = (
@@ -8,12 +11,12 @@ class Member(models.Model):
         ('Student', 'Student'),
         ('Business', 'Business')
     )
-    user = models.OneToOneField('users.User', verbose_name='Kullanıcı', on_delete=models.CASCADE,
+    user = models.OneToOneField(User, verbose_name='Kullanıcı', on_delete=models.CASCADE,
                                 related_name='member')
     type = models.CharField(max_length=15, verbose_name='Tip', choices=types)
     student = models.OneToOneField('students.Student', on_delete=models.CASCADE, related_name='member', null=True,
                                    blank=True)
-    business = models.OneToOneField('business.Business', on_delete=models.CASCADE, related_name='member', null=True,
+    business = models.OneToOneField('businesses.Business', on_delete=models.CASCADE, related_name='member', null=True,
                                     blank=True)
 
     def __str__(self):

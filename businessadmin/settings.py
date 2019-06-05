@@ -37,6 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'businessadmin.apps.branchs',
+    'businessadmin.apps.businesses',
+    'businessadmin.apps.core',
+    'businessadmin.apps.members',
+    'businessadmin.apps.students',
+    'businessadmin.apps.teachers',
+    'businessadmin.apps.terms',
 ]
 
 MIDDLEWARE = [

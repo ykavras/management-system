@@ -7,12 +7,10 @@ class Sector(models.Model):
     class Meta:
         verbose_name = 'Faaliyet Alanı'
         verbose_name_plural = 'Faaliyet Alanları'
-        order = ('name',)
+        ordering = ('name',)
 
 
 class Business(models.Model):
-    authorized_person = models.OneToOneField('users.User', verbose_name='Yetkili', on_delete=models.SET_NULL, null=True,
-                                             blank=True)
     name = models.CharField(verbose_name='Adı', max_length=255)
     address = models.CharField(verbose_name='Adres', max_length=255)
     email = models.EmailField()
@@ -41,7 +39,6 @@ class StudentQualification(models.Model):
     class Meta:
         verbose_name = 'Stajyer İsteği'
         verbose_name_plural = 'Stajyer İstekleri'
-        unique_together = ('group', 'period', 'branch')
 
     def __str__(self):
         return f'{self.branch} - {self.group} - {self.period}'
