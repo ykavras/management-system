@@ -2,10 +2,9 @@ from django.db import models
 
 
 class Teacher(models.Model):
-    type = models.CharField(verbose_name='Tip', max_length=16,
-                            choices=(('Chief', 'Chief',), ('Coordinator', 'Coordinator')))
-    user = models.OneToOneField('users.User', verbose_name='Kullanıcı', on_delete=models.PROTECT,
-                                related_name='teacher')
+    member = models.OneToOneField('members.Member', verbose_name='Kullanıcı', on_delete=models.PROTECT,
+                                  related_name='teacher')
+    phone = models.CharField(verbose_name='Tel', max_length=20)
 
     class Meta:
         verbose_name = 'Öğretmen'
