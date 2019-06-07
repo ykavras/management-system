@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse_lazy
 
 
 class Teacher(models.Model):
@@ -15,3 +16,6 @@ class Teacher(models.Model):
 
     def __str__(self):
         return self.member.user.get_full_name()
+
+    def get_absolute_url(self):
+        return reverse_lazy('teacher:detail', kwargs={'pk': self.pk})

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List</title>
+</head>
+<body>
+{% include 'teacher_top.html' %}
+
+<ul>
+    {% for teacher in object_list %}
+    <li>{{teacher}} <a href="{% url 'teacher:detail' teacher.pk %}">Görüntüle</a><a
+            href="{% url 'teacher:edit' teacher.pk %}">Düzenle</a>
+        <a href="{% url 'teacher:delete' teacher.pk %}">Sil</a>
+    </li>
+    {% endfor %}
+</ul>
+</body>
+</html>
