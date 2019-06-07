@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% include 'student_top.html' %}
+<p>Adı Soyadı: {{object.member.user.get_full_name}}</p>
+<p>Sınıfı: {{object.klass}}</p>
+<p>Numarası: {{object.number}}</p>
+<p>Email: {{object.member.user.email}}</p>
+<li>
+    <a href="{% url 'student:edit' object.pk %}">Düzenle</a> <a href="{% url 'student:delete' object.pk %}">Sil</a>
+</li>
+</body>
+</html>

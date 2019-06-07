@@ -25,6 +25,9 @@ class BusinessUpdate(PermissionRequiredMixin, UpdateView):
     model = Business
     fields = '__all__'
 
+    def has_permission(self):
+        return self.request.user.member.is_teacher
+
 
 class BusinessDetail(DetailView):
     template_name = 'business_detail.html'
