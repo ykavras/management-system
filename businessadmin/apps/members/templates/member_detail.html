@@ -6,6 +6,7 @@
 </head>
 <body>
 {% include 'member_top.html' %}
+<p>Kullanıcı Adı: {{object.user.username}}</p>
 <p>Adı: {{object.user.first_name}}</p>
 <p>Soyadı: {{object.user.last_name}}</p>
 <p>Email: {{object.user.email}}</p>

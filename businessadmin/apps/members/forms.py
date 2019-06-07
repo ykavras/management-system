@@ -25,7 +25,16 @@ class MemberForm(forms.ModelForm):
         if type in TYPES:
             user = super().save(commit=False)
             if not user.pk:
-                user.username = user.first_name[0] + user.last_name
+                username = user.first_name[0] + user.last_name
+                _username = username
+                cntr = 0
+                while True:
+                    if not User.objects.filter(username=username).exists():
+                        user.username = username
+                        break
+                    else:
+                        cntr += 1
+                        username = _username + str(cntr)
             if 'password' in self.changed_data:
                 user.set_password(self.cleaned_data.get('password'))
             user.save()
