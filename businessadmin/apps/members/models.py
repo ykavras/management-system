@@ -7,10 +7,10 @@ User = get_user_model()
 
 class Member(models.Model):
     types = (
-        ('Chief', 'Chief'),
-        ('Coordinator', 'Coordinator'),
-        ('Student', 'Student'),
-        ('Business', 'Business')
+        ('Chief', 'Alan Şefi'),
+        ('Coordinator', 'Koordinator Öğretmen'),
+        ('Student', 'Öğrenci'),
+        ('Business', 'İşletme Yetkilisi')
     )
     user = models.OneToOneField(User, verbose_name='Kullanıcı', on_delete=models.CASCADE,
                                 related_name='member')
