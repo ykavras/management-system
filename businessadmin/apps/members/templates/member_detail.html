@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% include 'member_top.html' %}
+<p>Adı: {{object.user.first_name}}</p>
+<p>Soyadı: {{object.user.last_name}}</p>
+<p>Email: {{object.user.email}}</p>
+<p>Tip: {{object.type}}</p>
+
+<li>
+    <a href="{% url 'member:edit' object.pk %}">Düzenle</a> <a href="{% url 'member:delete' object.pk %}">Sil</a>
+</li>
+</body>
+</html>

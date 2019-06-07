@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List</title>
+</head>
+<body>
+{% include 'member_top.html' %}
+
+<ul>
+    {% for member in object_list %}
+    <li>{{member}} <a href="{% url 'member:detail' member.pk %}">Görüntüle</a><a
+            href="{% url 'member:edit' member.pk %}">Düzenle</a>
+        <a href="{% url 'member:delete' member.pk %}">Sil</a>
+    </li>
+    {% endfor %}
+</ul>
+</body>
+</html>
