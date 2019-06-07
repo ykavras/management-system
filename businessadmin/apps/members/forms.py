@@ -23,8 +23,12 @@ class MemberForm(forms.ModelForm):
     def save(self, commit=True):
         type = self.cleaned_data.get('type')
         if type in TYPES:
-            user = super().save(commit=True)
-            user.set_password(self.cleaned_data.get('password'))
+            user = super().save(commit=False)
+            if not user.pk:
+                user.username = user.first_name[0] + user.last_name
+            if 'password' in self.changed_data:
+                user.set_password(self.cleaned_data.get('password'))
+            user.save()
             try:
                 Member.objects.create(user=user, type=type)
             except:
