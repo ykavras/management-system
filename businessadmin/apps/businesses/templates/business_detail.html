@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% include 'business_top.html' %}
+<p>Adı: {{object.name}}</p>
+<p>Adress: {{object.address}}</p>
+<p>Email: {{object.email}}</p>
+<p>Tel: {{object.phone}}</p>
+<p>Aktif/Pasive: {{object.passive}}</p>
+<p>Yetkili: {{object.manager}}</p>
+
+<li>
+    <a href="{% url 'business:edit' object.pk %}">Düzenle</a> <a href="{% url 'business:delete' object.pk %}">Sil</a>
+</li>
+</body>
+</html>

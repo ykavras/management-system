@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% include 'business_top.html' %}
+
+<ul>
+    {% for business in businesses %}
+    <li>{{business}}</li>
+    {% endfor %}
+</ul>
+
+<form method="POST">
+    {% csrf_token%}
+    {{form.as_p}}
+    <button type="submit">KAYDET</button>
+</form>
+{% for message in messages%}
+<p>{{message}}</p>
+{% endfor %}
+</body>
+</html>

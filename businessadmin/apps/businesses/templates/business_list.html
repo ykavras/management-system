@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List</title>
+</head>
+<body>
+{% include 'business_top.html' %}
+
+<ul>
+    {% for business in object_list %}
+    <li>{{business}} <a href="{% url 'business:detail' business.pk %}">Görüntüle</a><a
+            href="{% url 'business:edit' business.pk %}">Düzenle</a>
+        <a href="{% url 'business:delete' business.pk %}">Sil</a>
+    </li>
+    {% endfor %}
+</ul>
+</body>
+</html>
