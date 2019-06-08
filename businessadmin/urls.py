@@ -24,4 +24,5 @@ urlpatterns = [path('admin/', admin.site.urls),
                path('ogrenci/', include('businessadmin.apps.students.urls', namespace='student')),
                path('kullanici/', include('businessadmin.apps.members.urls', namespace='member')),
                path('ogretmen/', include('businessadmin.apps.teachers.urls', namespace='teacher')),
+               path('', include('businessadmin.apps.core.urls', namespace='core')),
                ] + static(STATIC_URL, document_root=STATIC_ROOT) + static(MEDIA_URL, document_root=MEDIA_ROOT)
