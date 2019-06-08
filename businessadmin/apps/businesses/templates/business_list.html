@@ -8,8 +8,9 @@
 {% include 'business_top.html' %}
 <ul>
     {% for business in object_list %}
-    <li>{{business}} <a href="{% url 'business:detail' business.pk %}">Görüntüle</a><a
-            href="{% url 'business:edit' business.pk %}">Düzenle</a>
+    <li>{{business}} <a href="{% url 'business:detail' business.pk %}">Görüntüle</a>
+        <a href="{% url 'business:edit' business.pk %}">Düzenle</a>
+        <a href="{% url 'business:get_student_list' business.pk %}">Öğrenci Listesi Al</a>
         <a href="{% url 'business:delete' business.pk %}">Sil</a>
     </li>
     {% endfor %}

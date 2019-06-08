@@ -165,3 +165,34 @@ class ExportBusinessView(View):
             ws.append(rows)
         wb.save(response)
         return response
+
+
+class ExportStudentView(View):
+
+    def get(self, request, pk):
+        business = get_object_or_404(Business, pk=pk)
+
+        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = 'attachment; filename="{}_isletmesinin-ogrenci-listesi_{}-{}-{}.xlsx"'.format(
+            business,
+            now().day,
+            now().month,
+            now().year)
+        wb = Workbook()
+        ws = wb.active
+
+        ws.append(['ADI', 'Okul Numarası', 'Sınıfı'])
+        FIELDS = ['name', 'number', 'klass']
+
+        for item in business.students.all():
+            rows = []
+            for field in FIELDS:
+                if field == 'name':
+                    rows.append(item.member.__str__())
+                elif field == 'klass':
+                    rows.append(item.klass.__str__())
+                else:
+                    rows.append(model_to_dict(item, fields=field).get(field))
+            ws.append(rows)
+        wb.save(response)
+        return response

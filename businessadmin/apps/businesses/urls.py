@@ -1,7 +1,5 @@
 from django.urls import path
-from .views import BusinessCreate, BusinessUpdate, BusinessDelete, BusinessDetail, BusinessList, \
-    StudentQualificationCreate, StudentQualificationUpdate, StudentQualificationDetail, StudentQualificationDelete,\
-    ScholarShipView, ExportBusinessView
+from .views import *
 
 app_name = 'business'
 
@@ -20,4 +18,6 @@ urlpatterns = [
          name='qualification_delete'),
     path('<int:pk>/ogrenci-gonder/', ScholarShipView.as_view(), name='scholarship'),
     path('liste-al', ExportBusinessView.as_view(), name='get_list'),
+    path('ogrenci-listesi-al', ExportBusinessView.as_view(), name='get_student_list'),
+    path('<int:pk>/ogrenci-listesi-al', ExportStudentView.as_view(), name='get_student_list'),
 ]
