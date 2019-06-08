@@ -63,6 +63,7 @@ class ScholarShip(models.Model):
                                    verbose_name='Öğrenci')
     business = models.ForeignKey('businesses.Business', on_delete=models.CASCADE, related_name='scholarships',
                                  verbose_name='İşletme')
+    student_thoughts = models.TextField(verbose_name='Öğrencinin düşünceleri', null=True, blank=True)
 
     def __str__(self):
         return str(self.id) + ' ' + self.student.member.user.get_full_name()

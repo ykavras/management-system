@@ -20,4 +20,5 @@ urlpatterns = [
     path('liste-al', ExportBusinessView.as_view(), name='get_list'),
     path('ogrenci-listesi-al', ExportBusinessView.as_view(), name='get_student_list'),
     path('<int:pk>/ogrenci-listesi-al', ExportStudentView.as_view(), name='get_student_list'),
+    path('<int:pk>/ogrencinin-dusunceleri/', StudentThoughtView.as_view(), name='student_thought'),
 ]

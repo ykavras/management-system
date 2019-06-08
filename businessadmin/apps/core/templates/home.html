@@ -10,14 +10,22 @@
 <body>
 <h1>Ana Sayfa</h1>
 
-<h3>linkler</h3>
 <ul>
     <li><a href="{% url 'business:list' %}">İşletmeler</a></li>
     <li><a href="{% url 'student:list' %}">Öğrenciler</a></li>
     <li><a href="{% url 'teacher:list' %}">Öğretmenler</a></li>
     <li><a href="{% url 'core:home' %}">Ana Sayfa</a></li>
+    {% if user.is_authenticated %}
+    <p>{{user.member.student.scholarship.pk}}</p>
+    {% if user.member.is_student %}
+    <li><a href="{% url 'business:student_thought' user.member.student.scholarship.pk %}">İşletme hakkındaki
+        görüşleriniz</a></li>
+    {%endif%}
     <li><a href="{% url 'core:logout' %}">Çıkış</a></li>
+    {%endif%}
 </ul>
+<h3>linkler</h3>
+
 
 </body>
 </html>

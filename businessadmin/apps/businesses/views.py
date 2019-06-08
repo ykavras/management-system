@@ -1,6 +1,6 @@
 from django.views.generic import ListView, DetailView, View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import HttpResponse, get_object_or_404
 from django.forms import model_to_dict
@@ -168,6 +168,18 @@ class ExportBusinessView(BusinessPermissionMixin, PermissionRequiredMixin, View)
             ws.append(rows)
         wb.save(response)
         return response
+
+
+class StudentThoughtView(PermissionRequiredMixin, UpdateView):
+    model = ScholarShip
+    template_name = 'student_thoughts_form.html'
+    fields = ['student_thoughts']
+    success_url = '/'
+
+    def has_permission(self):
+        obj = self.request.user.member.student.scholarship
+        user = self.request.user
+        return user.is_authenticated and (user.member == obj.student.member)
 
 
 class ExportStudentView(View):
