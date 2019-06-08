@@ -21,9 +21,6 @@ class TeacherFormMixin:
         'phone',
     ]
 
-    def has_permission(self):
-        return self.request.user.member.is_teacher
-
     def form_valid(self, form):
         form.instance.term = Term.objects.last()
         return super().form_valid(form)
@@ -36,11 +33,17 @@ class TeacherFormMixin:
         return form
 
 
-class TeacherCreate(TeacherFormMixin, PermissionRequiredMixin, CreateView):
+class TeacherPermissionMixin:
+    def has_permission(self):
+        user = self.request.user
+        return user.is_authenticated and user.member.is_teacher
+
+
+class TeacherCreate(TeacherPermissionMixin, TeacherFormMixin, PermissionRequiredMixin, CreateView):
     pass
 
 
-class TeacherUpdate(TeacherFormMixin, PermissionRequiredMixin, UpdateView):
+class TeacherUpdate(TeacherPermissionMixin, TeacherFormMixin, PermissionRequiredMixin, UpdateView):
     fields = [
         'phone',
     ]
@@ -49,23 +52,31 @@ class TeacherUpdate(TeacherFormMixin, PermissionRequiredMixin, UpdateView):
         return super(UpdateView, self).get_form(form_class)
 
 
-class TeacherDetail(DetailView):
+class TeacherDetail(PermissionRequiredMixin, DetailView):
     template_name = 'teacher_detail.html'
     model = Teacher
 
+    def has_permission(self):
+        user = self.request.user
+        return user.is_authenticated and (user.member.is_cheif or user.member == self.object.member)
 
-class TeacherDelete(DeleteView):
+
+class TeacherDelete(PermissionRequiredMixin, DeleteView):
     template_name = 'teacher_form.html'
     model = Teacher
     success_url = reverse_lazy('teacher:list')
 
+    def has_permission(self):
+        user = self.request.user
+        return user.is_authenticated and user.member.is_cheif
 
-class TeacherList(ListView):
+
+class TeacherList(TeacherPermissionMixin, PermissionRequiredMixin, ListView):
     template_name = 'teacher_list.html'
     model = Teacher
 
 
-class ExportStudentView(View):
+class ExportStudentView(TeacherPermissionMixin, PermissionRequiredMixin, View):
     def get(self, request, pk):
         teacher = get_object_or_404(Teacher, pk=pk)
 
@@ -102,7 +113,7 @@ class ExportStudentView(View):
         return response
 
 
-class ExportBusinessView(View):
+class ExportBusinessView(TeacherPermissionMixin, PermissionRequiredMixin, View):
     def get(self, request, pk):
         teacher = get_object_or_404(Teacher, pk=pk)
 
