@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import BusinessCreate, BusinessUpdate, BusinessDelete, BusinessDetail, BusinessList, \
-    StudentQualificationCreate, StudentQualificationUpdate, StudentQualificationDetail, StudentQualificationDelete
+    StudentQualificationCreate, StudentQualificationUpdate, StudentQualificationDetail, StudentQualificationDelete,\
+    ScholarShipView
 
 app_name = 'business'
 
@@ -17,4 +18,5 @@ urlpatterns = [
          name='qualification_edit'),
     path('<int:bs_pk>/ogrenci-ihtiyaci/<int:pk>/sil', StudentQualificationDelete.as_view(),
          name='qualification_delete'),
+    path('<int:pk>/ogrenci-gonder/', ScholarShipView.as_view(), name='scholarship')
 ]

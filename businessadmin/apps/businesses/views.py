@@ -1,11 +1,14 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.shortcuts import render,redirect
+from django.shortcuts import get_object_or_404
 
 from .models import Business, StudentQualification
 from ..members.models import Member
-from ..teachers.models import Teacher
+from ..students.models import Student
+
 
 class BusinessCreate(PermissionRequiredMixin, CreateView):
     template_name = 'business_form.html'
@@ -106,3 +109,27 @@ class StudentQualificationDelete(DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('business:detail', kwargs={'pk': self.object.business.pk, })
+
+
+class ScholarShipView(View):
+
+    def get(self, request, pk):
+        students = Student.objects.filter(business__isnull=True)
+        business = get_object_or_404(Business, pk=pk)
+        return render(request, 'scholarship.html', {'students': students, 'business': business})
+
+    def post(self, request, pk):
+        students = self.request.POST.getlist('students')
+        busines_id = self.request.POST.get('business')
+
+        business = get_object_or_404(Business, id=busines_id)
+
+        for id in students:
+            try:
+                student = Student.objects.get(id=int(id))
+                student.business = business
+                student.save()
+            except:
+                # TODO catch errors
+                pass
+        return redirect('business:detail', kwargs={'pk': busines_id})

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>{{business}}</p>
+<form method="post">
+    {% csrf_token %}
+    <input name="business" type="hidden" value="{{business.pk}}">
+    <select name="students" required multiple>
+        {% for student in students %}
+        <option value="{{student.pk}}">{{student}}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Ekle</button>
+</form>
+</body>
+</html>
