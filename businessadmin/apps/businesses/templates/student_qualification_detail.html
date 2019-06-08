@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul>
+    <li>{{object.group}}</li>
+    <li>{{object.get_period_display}}</li>
+    <li>{{object.start_date}} - {{object.finish_date}}</li>
+    <li>{{object.piece}} Kişi</li>
+    <li>{% for branch in object.branch.all %}<span>{{branch.name}}</span>{% if not forloop.first %}, {%endif%}{%endfor%}
+    </li>
+    <li>{{object.qualifications}}</li>
+</ul>
+
+<ul><li> <a href="{% url 'business:qualification_edit' object.business.pk  object.pk %} ">Düzenle</a>
+        <a href="{% url 'business:qualification_delete'  object.business.pk  object.pk %} ">Sil</a></li></ul>
+</body>
+</html>

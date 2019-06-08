@@ -3,7 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
-from .models import Business
+from .models import Business, StudentQualification
 
 
 class BusinessCreate(PermissionRequiredMixin, CreateView):
@@ -43,3 +43,59 @@ class BusinessDelete(DeleteView):
 class BusinessList(ListView):
     template_name = 'business_list.html'
     model = Business
+
+
+class StudentQualificationCreate(CreateView):
+    model = StudentQualification
+    template_name = 'student_qualification_form.html'
+    fields = [
+        'group',
+        'period',
+        'start_date',
+        'finish_date',
+        'piece',
+        'branch',
+        'qualifications',
+    ]
+
+    def form_valid(self, form):
+        business_id = self.request.get_full_path().split('/')[2]
+        try:
+            form.instance.business = Business.objects.get(id=business_id)
+        except:
+            pass
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('business:detail', kwargs={'pk': self.object.business.pk})
+
+
+class StudentQualificationUpdate(UpdateView):
+    model = StudentQualification
+    template_name = 'student_qualification_form.html'
+    fields = [
+        'group',
+        'period',
+        'start_date',
+        'finish_date',
+        'piece',
+        'branch',
+        'qualifications',
+    ]
+
+    def get_success_url(self):
+        return reverse_lazy('business:detail', kwargs={'pk': self.object.business.pk})
+
+
+class StudentQualificationDetail(DetailView):
+    model = StudentQualification
+    template_name = 'student_qualification_detail.html'
+    fields = '__all__'
+
+
+class StudentQualificationDelete(DeleteView):
+    model = StudentQualification
+    template_name = 'student_qualification_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('business:detail', kwargs={'pk': self.object.business.pk,})

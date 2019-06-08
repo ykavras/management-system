@@ -12,9 +12,23 @@
 <p>Tel: {{object.phone}}</p>
 <p>Aktif/Pasive: {{object.passive}}</p>
 <p>Yetkili: {{object.manager}}</p>
-
 <li>
     <a href="{% url 'business:edit' object.pk %}">Düzenle</a> <a href="{% url 'business:delete' object.pk %}">Sil</a>
+</li>
+<hr>
+<h4>İşletmenin Stajer İhtiyacı</h4>
+<ul>
+    {% for qualification in object.qualificaions.all %}
+    <li>{% for branch in qualification.branch.all %}<span>{{branch.name}} </span>{%endfor%}- {{ qualification.group}} -
+        {{qualification.piece}} Kişi <a
+                href="{% url 'business:qualification_detail' object.pk  qualification.pk %}">Görüntüle</a>
+        <a href="{% url 'business:qualification_edit' object.pk  qualification.pk %} ">Düzenle</a>
+        <a href="{% url 'business:qualification_delete'  object.pk  qualification.pk %} ">Sil</a>
+    </li>
+    {% endfor %}
+</ul>
+<li>
+    <a href="{% url 'business:qualification_create' object.pk %}">Öğrenci İhtiyacı Ekle</a>
 </li>
 </body>
 </html>

@@ -41,6 +41,8 @@ class StudentQualification(models.Model):
     piece = models.PositiveSmallIntegerField(verbose_name='Öğrenci Sayısı')
     branch = models.ManyToManyField('branchs.Branch', verbose_name='Dal')
     qualifications = models.TextField(verbose_name='Nitelikler', null=True, blank=True)
+    business = models.ForeignKey('businesses.Business', verbose_name='İşletme', on_delete=models.CASCADE,
+                                 related_name='qualificaions')
 
     class Meta:
         verbose_name = 'Stajyer İsteği'
