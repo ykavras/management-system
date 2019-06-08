@@ -9,7 +9,9 @@
 
 <ul>
     {% for teacher in object_list %}
-    <li>{{teacher}}{% if teacher.is_chief %} <span>| Alan Şefi |</span>  {% endif %}
+    <li>{{teacher}}{% if teacher.is_chief %} <span>| Alan Şefi |</span> {% endif %}
+        <a href="{% url 'teacher:get_business_list' teacher.pk  %}">İşletme Listesi</a>
+        <a href="{% url 'teacher:get_student_list' teacher.pk %}">Öğrenci Listesi</a>
         <a href="{% url 'teacher:detail' teacher.pk %}">Görüntüle</a>
         <a href="{% url 'teacher:edit' teacher.pk %}">Düzenle</a>
         <a href="{% url 'teacher:delete' teacher.pk %}">Sil</a>

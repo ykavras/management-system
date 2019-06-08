@@ -9,8 +9,15 @@
 <p>Adı Soyadı: {{object.member.user.get_full_name}}</p>
 <p>Email: {{object.member.user.email}}</p>
 <p>Tel: {{object.phone}}</p>
+
+<li>
+    <a href="{% url 'teacher:get_business_list' object.pk  %}">İşletme Listesi</a>
+    <a href="{% url 'teacher:get_student_list' object.pk %}">Öğrenci Listesi</a>
+</li>
+
 <li>
     <a href="{% url 'teacher:edit' object.pk %}">Düzenle</a> <a href="{% url 'teacher:delete' object.pk %}">Sil</a>
 </li>
+
 </body>
 </html>

@@ -7,6 +7,7 @@ from django.forms import model_to_dict
 from django.utils.timezone import now
 
 from openpyxl import Workbook
+
 from .models import Student
 from ..members.models import Member
 from ..terms.models import Term
