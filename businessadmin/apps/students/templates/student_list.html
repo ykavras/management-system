@@ -7,6 +7,7 @@
 <body>
 {% include 'student_top.html' %}
 
+<a href="{% url 'student:get_list' %}">Öğrenci Listesi al</a>
 <ul>
     {% for student in object_list %}
     <li>{{student}} <a href="{% url 'student:detail' student.pk %}">Görüntüle</a><a
