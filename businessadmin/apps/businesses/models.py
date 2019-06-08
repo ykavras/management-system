@@ -19,6 +19,8 @@ class Business(models.Model):
     passive = models.BooleanField(verbose_name='Pasif', default=False)
     manager = models.OneToOneField('members.Member', on_delete=models.PROTECT, related_name='business',
                                    verbose_name='Yetkili')
+    coordinator = models.ForeignKey('teachers.Teacher', on_delete=models.SET_NULL, related_name='businesses',
+                                    verbose_name='Koordinatör Öğretmen', null=True, blank=True)
 
     class Meta:
         verbose_name = 'İşletme'

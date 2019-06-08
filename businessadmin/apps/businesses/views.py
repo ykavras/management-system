@@ -4,7 +4,8 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from .models import Business, StudentQualification
-
+from ..members.models import Member
+from ..teachers.models import Teacher
 
 class BusinessCreate(PermissionRequiredMixin, CreateView):
     template_name = 'business_form.html'
@@ -14,10 +15,16 @@ class BusinessCreate(PermissionRequiredMixin, CreateView):
               'email',
               'phone',
               'manager',
+              'coordinator'
               ]
 
     def has_permission(self):
         return self.request.user.member.is_teacher
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['manager'].queryset = Member.objects.filter(type='Business')
+        return form
 
 
 class BusinessUpdate(PermissionRequiredMixin, UpdateView):
@@ -98,4 +105,4 @@ class StudentQualificationDelete(DeleteView):
     template_name = 'student_qualification_form.html'
 
     def get_success_url(self):
-        return reverse_lazy('business:detail', kwargs={'pk': self.object.business.pk,})
+        return reverse_lazy('business:detail', kwargs={'pk': self.object.business.pk, })
