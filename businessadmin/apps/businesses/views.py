@@ -13,7 +13,14 @@ from ..members.models import Member
 from ..students.models import Student
 
 
-class BusinessCreate(PermissionRequiredMixin, CreateView):
+class BusinessPermissionMixin:
+
+    def has_permission(self):
+        user = self.request.user
+        return user.is_authenticated and user.member.is_teacher
+
+
+class BusinessCreate(BusinessPermissionMixin, PermissionRequiredMixin, CreateView):
     template_name = 'business_form.html'
     model = Business
     fields = ['name',
@@ -24,41 +31,35 @@ class BusinessCreate(PermissionRequiredMixin, CreateView):
               'coordinator'
               ]
 
-    def has_permission(self):
-        return self.request.user.member.is_teacher
-
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         form.fields['manager'].queryset = Member.objects.filter(type='Business')
         return form
 
 
-class BusinessUpdate(PermissionRequiredMixin, UpdateView):
+class BusinessUpdate(BusinessPermissionMixin, PermissionRequiredMixin, UpdateView):
     template_name = 'business_form.html'
     model = Business
     fields = '__all__'
 
-    def has_permission(self):
-        return self.request.user.member.is_teacher
 
-
-class BusinessDetail(DetailView):
+class BusinessDetail(BusinessPermissionMixin, PermissionRequiredMixin, DetailView):
     template_name = 'business_detail.html'
     model = Business
 
 
-class BusinessDelete(DeleteView):
+class BusinessDelete(BusinessPermissionMixin, PermissionRequiredMixin, DeleteView):
     template_name = 'business_form.html'
     model = Business
     success_url = reverse_lazy('business:list')
 
 
-class BusinessList(ListView):
+class BusinessList(BusinessPermissionMixin, PermissionRequiredMixin, ListView):
     template_name = 'business_list.html'
     model = Business
 
 
-class StudentQualificationCreate(CreateView):
+class StudentQualificationCreate(BusinessPermissionMixin, PermissionRequiredMixin, CreateView):
     model = StudentQualification
     template_name = 'student_qualification_form.html'
     fields = [
@@ -83,7 +84,7 @@ class StudentQualificationCreate(CreateView):
         return reverse_lazy('business:detail', kwargs={'pk': self.object.business.pk})
 
 
-class StudentQualificationUpdate(UpdateView):
+class StudentQualificationUpdate(BusinessPermissionMixin, PermissionRequiredMixin, UpdateView):
     model = StudentQualification
     template_name = 'student_qualification_form.html'
     fields = [
@@ -100,13 +101,13 @@ class StudentQualificationUpdate(UpdateView):
         return reverse_lazy('business:detail', kwargs={'pk': self.object.business.pk})
 
 
-class StudentQualificationDetail(DetailView):
+class StudentQualificationDetail(BusinessPermissionMixin, PermissionRequiredMixin, DetailView):
     model = StudentQualification
     template_name = 'student_qualification_detail.html'
     fields = '__all__'
 
 
-class StudentQualificationDelete(DeleteView):
+class StudentQualificationDelete(BusinessPermissionMixin, PermissionRequiredMixin, DeleteView):
     model = StudentQualification
     template_name = 'student_qualification_form.html'
 
@@ -114,7 +115,7 @@ class StudentQualificationDelete(DeleteView):
         return reverse_lazy('business:detail', kwargs={'pk': self.object.business.pk, })
 
 
-class ScholarShipCreate(CreateView):
+class ScholarShipCreate(PermissionRequiredMixin, CreateView):
     template_name = 'scholar_ship_form.html'
     model = ScholarShip
     fields = ['group', 'period', 'student']
@@ -135,8 +136,12 @@ class ScholarShipCreate(CreateView):
     def get_success_url(self):
         return reverse_lazy('business:detail', kwargs={'pk': self.object.business.pk})
 
+    def has_permission(self):
+        user = self.request.user
+        return user.is_authenticated and user.member.is_cheif
 
-class ExportBusinessView(View):
+
+class ExportBusinessView(BusinessPermissionMixin, PermissionRequiredMixin, View):
 
     def get(self, request):
         businesses = Business.objects.filter(passive=False)
