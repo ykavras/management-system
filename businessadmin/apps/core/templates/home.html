@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ana Sayfa</title>
+</head>
+<body>
+<h1>Ana Sayfa</h1>
+
+<h3>linkler</h3>
+<ul>
+    <li><a href="{% url 'business:list' %}">İşletmeler</a></li>
+    <li><a href="{% url 'student:list' %}">Öğrenciler</a></li>
+    <li><a href="{% url 'teacher:list' %}">Öğretmenler</a></li>
+    <li><a href="{% url 'core:home' %}">Ana Sayfa</a></li>
+    <li><a href="{% url 'core:logout' %}">Çıkış</a></li>
+</ul>
+
+</body>
+</html>
