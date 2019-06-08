@@ -2,13 +2,13 @@ from django.views.generic import ListView, DetailView, View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
+from django.shortcuts import HttpResponse, get_object_or_404
 from django.forms import model_to_dict
 from django.utils.timezone import now
 
 from openpyxl import Workbook
 
-from .models import Business, StudentQualification
+from .models import Business, StudentQualification, ScholarShip
 from ..members.models import Member
 from ..students.models import Student
 
@@ -114,28 +114,26 @@ class StudentQualificationDelete(DeleteView):
         return reverse_lazy('business:detail', kwargs={'pk': self.object.business.pk, })
 
 
-class ScholarShipView(View):
+class ScholarShipCreate(CreateView):
+    template_name = 'scholar_ship_form.html'
+    model = ScholarShip
+    fields = ['group', 'period', 'student']
 
-    def get(self, request, pk):
-        students = Student.objects.filter(business__isnull=True)
-        business = get_object_or_404(Business, pk=pk)
-        return render(request, 'scholarship.html', {'students': students, 'business': business})
+    def form_valid(self, form):
+        business_id = self.request.get_full_path().split('/')[2]
+        try:
+            form.instance.business = Business.objects.get(id=business_id)
+        except:
+            pass
+        return super().form_valid(form)
 
-    def post(self, request, pk):
-        students = self.request.POST.getlist('students')
-        busines_id = self.request.POST.get('business')
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['student'].queryset = Student.objects.filter(scholarship__isnull=True)
+        return form
 
-        business = get_object_or_404(Business, id=busines_id)
-
-        for id in students:
-            try:
-                student = Student.objects.get(id=int(id))
-                student.business = business
-                student.save()
-            except:
-                # TODO catch errors
-                pass
-        return redirect('business:detail', kwargs={'pk': busines_id})
+    def get_success_url(self):
+        return reverse_lazy('business:detail', kwargs={'pk': self.object.business.pk})
 
 
 class ExportBusinessView(View):

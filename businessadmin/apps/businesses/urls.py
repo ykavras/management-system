@@ -16,7 +16,7 @@ urlpatterns = [
          name='qualification_edit'),
     path('<int:bs_pk>/ogrenci-ihtiyaci/<int:pk>/sil', StudentQualificationDelete.as_view(),
          name='qualification_delete'),
-    path('<int:pk>/ogrenci-gonder/', ScholarShipView.as_view(), name='scholarship'),
+    path('<int:pk>/ogrenci-gonder/', ScholarShipCreate.as_view(), name='scholarship'),
     path('liste-al', ExportBusinessView.as_view(), name='get_list'),
     path('ogrenci-listesi-al', ExportBusinessView.as_view(), name='get_student_list'),
     path('<int:pk>/ogrenci-listesi-al', ExportStudentView.as_view(), name='get_student_list'),
