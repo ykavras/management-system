@@ -21,8 +21,8 @@
 <h4>Bu işletmedeki öğrencilerimiz</h4>
 
 <ul>
-    {% for student in object.students.all %}
-    <li>{{student}}</li>
+    {% for ss in object.scholarships.all %}
+    <li>{{ss.student.number}} {{ss.student.member.user.get_full_name}}</li>
     {% endfor %}
 </ul>
 

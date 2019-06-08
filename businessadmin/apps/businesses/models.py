@@ -52,3 +52,17 @@ class StudentQualification(models.Model):
 
     def __str__(self):
         return f'{self.branch} - {self.group} - {self.period}'
+
+
+class ScholarShip(models.Model):
+    period_choices = (('1', 'P.tesi, Salı, Çarşamba'), ('2', 'Çarşamba, Perşembe, Cuma'))
+    group = models.CharField(verbose_name='Grup', choices=(('Yaz', 'Yaz'), ('Kış', 'Kış')), max_length=3)
+    period = models.CharField(verbose_name='Haftalık Periyot', choices=period_choices, max_length=1, null=True,
+                              blank=True)
+    student = models.OneToOneField('students.Student', on_delete=models.CASCADE, related_name='scholarship',
+                                   verbose_name='Öğrenci')
+    business = models.ForeignKey('businesses.Business', on_delete=models.CASCADE, related_name='scholarships',
+                                 verbose_name='İşletme')
+
+    def __str__(self):
+        return str(self.id) + ' ' + self.student.member.user.get_full_name()

@@ -9,9 +9,6 @@ class Student(models.Model):
     term = models.ForeignKey('terms.Term', verbose_name='Dönem', on_delete=models.CASCADE, related_name='students')
     klass = models.ForeignKey('branchs.Klass', on_delete=models.CASCADE, related_name='students', verbose_name='Sınıf')
 
-    business = models.ForeignKey('businesses.Business', on_delete=models.SET_NULL, verbose_name='İşletme',
-                                 related_name='students', null=True, blank=True)
-
     class Meta:
         verbose_name = 'Öğrenci'
         verbose_name_plural = 'Öğrenciler'
@@ -21,3 +18,4 @@ class Student(models.Model):
 
     def get_absolute_url(self):
         return reverse_lazy('student:detail', kwargs={'pk': self.pk})
+
