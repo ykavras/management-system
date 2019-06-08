@@ -12,7 +12,7 @@ class Teacher(models.Model):
         verbose_name_plural = 'Öğretmenler'
 
     def is_chief(self):
-        return self.type == 'Chief'
+        return self.member.type == 'Chief'
 
     def __str__(self):
         return self.member.user.get_full_name()
