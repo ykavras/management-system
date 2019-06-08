@@ -107,7 +107,7 @@ class ExportBusinessView(View):
         teacher = get_object_or_404(Teacher, pk=pk)
 
         response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-        response['Content-Disposition'] = 'attachment; filename="{}-ogretmenin-ogrenci-listesi_{}-{}-{}.xlsx"'.format(
+        response['Content-Disposition'] = 'attachment; filename="{}-ogretmenin-isletme-listesi_{}-{}-{}.xlsx"'.format(
             teacher.member.user.get_full_name(),
             now().day,
             now().month,
