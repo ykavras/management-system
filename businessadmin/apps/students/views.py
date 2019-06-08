@@ -23,7 +23,8 @@ class StudentFormMixin:
     ]
 
     def has_permission(self):
-        return self.request.user.member.is_teacher
+        user = self.request.user
+        return user.is_authenticated and user.member.is_teacher
 
     def form_valid(self, form):
         form.instance.term = Term.objects.last()
@@ -51,23 +52,23 @@ class StudentUpdate(StudentFormMixin, PermissionRequiredMixin, UpdateView):
         return super(UpdateView, self).get_form(form_class)
 
 
-class StudentDetail(DetailView):
+class StudentDetail(StudentFormMixin, PermissionRequiredMixin, DetailView):
     template_name = 'student_detail.html'
     model = Student
 
 
-class StudentDelete(DeleteView):
+class StudentDelete(StudentFormMixin, PermissionRequiredMixin, DeleteView):
     template_name = 'student_form.html'
     model = Student
     success_url = reverse_lazy('student:list')
 
 
-class StudentList(ListView):
+class StudentList(StudentFormMixin, PermissionRequiredMixin, ListView):
     template_name = 'student_list.html'
     model = Student
 
 
-class ExportView(View):
+class ExportView(StudentFormMixin, PermissionRequiredMixin, View):
 
     def get(self, request):
 
