@@ -1,0 +1,24 @@
+{
+  "name": "management-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ykavras/management-system.git"
+  },
+  "keywords": [],
+  "author": "ykavras@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ykavras/management-system/issues"
+  },
+  "homepage": "https://github.com/ykavras/management-system#readme",
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.4.1"
+  }
+}

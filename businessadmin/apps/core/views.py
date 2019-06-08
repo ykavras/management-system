@@ -7,12 +7,18 @@ from django.views.generic import View
 
 class HomeView(View):
     def get(self, request):
-        return render(request, 'home.html')
+        payload = {
+            'title': 'Ana sayfa'
+        }
+        return render(request, 'home.html', payload)
 
 
 class LoginView(View):
     def get(self, request):
-        return render(request, 'login.html')
+        payload = {
+            'title': 'Giriş Yap'
+        }
+        return render(request, 'login.html', payload)
 
     def post(self, request):
         username = request.POST.get('username')
