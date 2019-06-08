@@ -6,7 +6,6 @@
 </head>
 <body>
 {% include 'business_top.html' %}
-
 <ul>
     {% for business in object_list %}
     <li>{{business}} <a href="{% url 'business:detail' business.pk %}">Görüntüle</a><a
@@ -15,5 +14,7 @@
     </li>
     {% endfor %}
 </ul>
+
+<a href="{% url 'business:get_list' %}">İşletme Listesi Al</a>
 </body>
 </html>

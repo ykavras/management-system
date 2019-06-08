@@ -2,8 +2,11 @@ from django.views.generic import ListView, DetailView, View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.shortcuts import render,redirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
+from django.forms import model_to_dict
+from django.utils.timezone import now
+
+from openpyxl import Workbook
 
 from .models import Business, StudentQualification
 from ..members.models import Member
@@ -133,3 +136,32 @@ class ScholarShipView(View):
                 # TODO catch errors
                 pass
         return redirect('business:detail', kwargs={'pk': busines_id})
+
+
+class ExportBusinessView(View):
+
+    def get(self, request):
+        businesses = Business.objects.filter(passive=False)
+
+        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = 'attachment; filename="isletme-listesi_{}-{}-{}.xlsx"'.format(
+            now().day,
+            now().month,
+            now().year)
+        wb = Workbook()
+        ws = wb.active
+
+        ws.append(['ADI', 'EMAIL', 'TEL', 'YETKİLİ', 'KORDINATOR', 'ADDRES'])
+        FIELDS = ['name', 'email', 'phone', 'manager', 'coordinator', 'address', ]
+
+        for item in businesses:
+            rows = []
+            for field in FIELDS:
+                if field == 'manager' or field == 'coordinator':
+                    id = model_to_dict(item).get(field)
+                    rows.append(Member.objects.get(id=id).__str__()) if id else rows.append('')
+                else:
+                    rows.append(model_to_dict(item, fields=field).get(field))
+            ws.append(rows)
+        wb.save(response)
+        return response
