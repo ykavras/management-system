@@ -10,7 +10,13 @@ from .forms import MemberForm
 User = get_user_model()
 
 
-class MemberCreate(PermissionRequiredMixin, CreateView):
+class MemberPermissionMixin:
+    def has_permission(self):
+        user = self.request.user
+        return user.is_authenticated and user.member.is_cheif
+
+
+class MemberCreate(MemberPermissionMixin, PermissionRequiredMixin, CreateView):
     template_name = 'member_form.html'
     form_class = MemberForm
     model = User
@@ -18,11 +24,8 @@ class MemberCreate(PermissionRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse_lazy('member:detail', kwargs={'pk': self.object.pk})
 
-    def has_permission(self):
-        return self.request.user.member.is_teacher
 
-
-class MemberUpdate(PermissionRequiredMixin, UpdateView):
+class MemberUpdate(MemberPermissionMixin, PermissionRequiredMixin, UpdateView):
     template_name = 'member_form.html'
     form_class = MemberForm
     model = User
@@ -30,21 +33,18 @@ class MemberUpdate(PermissionRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse_lazy('member:detail', kwargs={'pk': self.object.pk})
 
-    def has_permission(self):
-        return self.request.user.member.is_teacher
 
-
-class MemberDetail(DetailView):
+class MemberDetail(MemberPermissionMixin, PermissionRequiredMixin, DetailView):
     template_name = 'member_detail.html'
     model = Member
 
 
-class MemberDelete(DeleteView):
+class MemberDelete(MemberPermissionMixin, PermissionRequiredMixin, DeleteView):
     template_name = 'member_form.html'
     model = User
     success_url = reverse_lazy('member:list')
 
 
-class MemberList(ListView):
+class MemberList(MemberPermissionMixin, PermissionRequiredMixin, ListView):
     template_name = 'member_list.html'
     model = User
