@@ -1,25 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% include 'member_top.html' %}
+{% extends 'base.html' %}{% load staticfiles %}
+{% block styles %}
+    <style type="text/css">
+        label {
+            font-weight: bold
+        }
+    </style>
+{% endblock %}
 
-<ul>
-    {% for member in memberes %}
-    <li>{{member}}</li>
-    {% endfor %}
-</ul>
+{% block App %}
+    <div class="container">
+        <h1 class="text-center mt-4 mb-4">Yeni Kullanıcı Ekle</h1>
+        <ul>
+            {% for member in memberes %}
+                <li>{{ member }}</li>
+            {% endfor %}
+        </ul>
 
-<form method="POST">
-    {% csrf_token%}
-    {{form.as_p}}
-    <button type="submit">KAYDET</button>
-</form>
-{% for message in messages%}
-<p>{{message}}</p>
-{% endfor %}
-</body>
-</html>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary w-100" type="submit">KAYDET</button>
+        </form>
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        $('select,input,textarea').addClass('form-control');
+        $('input[name=start_date],input[name=finish_date]').attr('type', 'date');
+        $('p').addClass('form-group');
+    </script>
+{% endblock %}

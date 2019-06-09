@@ -1,19 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% include 'member_top.html' %}
-<p>Kullanıcı Adı: {{object.user.username}}</p>
-<p>Adı: {{object.user.first_name}}</p>
-<p>Soyadı: {{object.user.last_name}}</p>
-<p>Email: {{object.user.email}}</p>
-<p>Tip: {{object.type}}</p>
+{% extends 'base.html' %}{% load staticfiles %}
+{% block App %}
+    <div class="container">
+        <h1 class="text-center mt-4 mb-4">{{ object.user.get_full_name }}</h1>
+        <div class="bg-light rounded box-shadow p-2">
+            <div class="media text-muted pt-1">
+                <div class="media-body pb-1 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        <strong class="text-gray-dark">Kullanıcı Adı</strong>
+                    </div>
+                    <span class="d-block">{{ object.user.first_name }}</span>
+                </div>
+            </div>
+            <div class="media text-muted pt-1">
+                <div class="media-body pb-1 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        <strong class="text-gray-dark">Soyadı</strong>
+                    </div>
+                    <span class="d-block">{{ object.user.last_name }}</span>
+                </div>
+            </div>
+            <div class="media text-muted pt-1">
+                <div class="media-body pb-1 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        <strong class="text-gray-dark">E-Posta</strong>
+                    </div>
+                    <span class="d-block">{{ object.user.email }}</span>
+                </div>
+            </div>
+            <div class="media text-muted pt-1">
+                <div class="media-body pb-1 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        <strong class="text-gray-dark">Tip</strong>
+                    </div>
+                    <span class="d-block">{{ object.type }}</span>
+                </div>
+            </div>
+        </div>
 
-<li>
-    <a href="{% url 'member:edit' object.pk %}">Düzenle</a> <a href="{% url 'member:delete' object.pk %}">Sil</a>
-</li>
-</body>
-</html>
+        <div class="btn-group d-flex">
+            <a class="btn btn-warning w-100" href="{% url 'member:edit' object.pk %}" title="Düzenle">Düzenle</a>
+            <a class="btn btn-danger w-100" href="{% url 'member:delete' object.pk %}" title="Sil">Sil</a>
+        </div>
+    </div>
+{% endblock %}
