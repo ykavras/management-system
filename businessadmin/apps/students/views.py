@@ -39,6 +39,7 @@ class StudentFormMixin:
 
 
 class StudentCreate(StudentFormMixin, PermissionRequiredMixin, CreateView):
+    template_name = 'student_create.html'
     pass
 
 
