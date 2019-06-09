@@ -12,7 +12,7 @@
         <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}
-            <button class="btn btn-primary w-100" type="submit">Güncelle</button>
+            <button class="btn btn-primary w-100" type="submit">Düzenle</button>
         </form>
         {% for message in messages %}
             <p class="alert alert-warning">{{ message }}</p>
