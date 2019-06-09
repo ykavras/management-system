@@ -1,21 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>List</title>
-</head>
-<body>
-{% include 'business_top.html' %}
-<ul>
-    {% for business in object_list %}
-    <li>{{business}} <a href="{% url 'business:detail' business.pk %}">Görüntüle</a>
-        <a href="{% url 'business:edit' business.pk %}">Düzenle</a>
-        <a href="{% url 'business:get_student_list' business.pk %}">Öğrenci Listesi Al</a>
-        <a href="{% url 'business:delete' business.pk %}">Sil</a>
-    </li>
-    {% endfor %}
-</ul>
-
-<a href="{% url 'business:get_list' %}">İşletme Listesi Al</a>
-</body>
-</html>
+{% extends 'base.html' %}{% load staticfiles %}
+{% block App %}
+    <div class="container">
+        {% include 'business_top.html' %}
+        {% for business in object_list %}
+            <div class="card mt-4">
+                <h5 class="card-header">{{ business }}</h5>
+                <div class="card-body">
+                    <p class="card-text">
+                        <b>Adres: </b>
+                        {{ business.address }}
+                    </p>
+                    <p class="card-text">
+                        <b>E-Posta: </b>
+                        <a target="_blank" href="mailto:{{ business.email }}" title="{{ business.email }}">{{ business.email }}</a>
+                    </p>
+                    <p class="card-text">
+                        <b>Telefon: </b>
+                        <a target="_blank" href="tel:{{ business.phone }}" title="{{ business.phone }}">{{ business.phone }}</a>
+                    </p>
+                    <div class="w-100 d-flex flex-column flex-md-row">
+                        <a class="flex-fill mt-1 mr-1 btn btn-info btn-sm" href="{% url 'business:detail' business.pk %}">Görüntüle</a>
+                        <a class="flex-fill mt-1 mr-1 btn btn-primary btn-sm" href="{% url 'business:get_student_list' business.pk %}">Öğrenci Listesi Al</a>
+                        <a class="flex-fill mt-1 mr-1 btn btn-warning btn-sm" href="{% url 'business:edit' business.pk %}">Düzenle</a>
+                        <a class="flex-fill mt-1 mr-1 btn btn-danger btn-sm" href="{% url 'business:delete' business.pk %}">Sil</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="text-center">
+            <a class="btn btn-primary mt-4 mb-4 w-50" href="{% url 'business:get_list' %}">İşletme Listesi Al</a>
+        </div>
+    </div>
+{% endblock %}

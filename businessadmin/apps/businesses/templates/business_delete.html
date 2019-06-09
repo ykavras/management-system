@@ -8,15 +8,15 @@
 {% endblock %}
 {% block App %}
     <div class="container">
-        <h1 class="text-center mt-4 mb-4">Yeni Öğretmen Ekle</h1>
-        <a href="{% url 'members:create' %}" class="btn btn-outline-primary btn-sm mb-2">Yeni Kullanıcı Ekle</a>
-        <form method="POST">
+        <h1 class="text-center mt-4 mb-2">İşletmeyi Sil</h1>
+        <h2 class="text-center h4 mt-4 mb-4">{{ business.name }}</h2>
+        <form method="POST" class="mb-2">
             {% csrf_token %}
             {{ form.as_p }}
-            <button class="btn btn-primary w-100" type="submit">KAYDET</button>
+            <button class="w-100 btn btn-danger" type="submit">Sil</button>
         </form>
         {% for message in messages %}
-            <p class="alert alert-warning">{{ message }}</p>
+            <p class="alert alert-warning mt-2">{{ message }}</p>
         {% endfor %}
     </div>
 {% endblock %}

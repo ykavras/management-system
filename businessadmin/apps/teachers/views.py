@@ -47,6 +47,7 @@ class TeacherUpdate(TeacherPermissionMixin, TeacherFormMixin, PermissionRequired
     fields = [
         'phone',
     ]
+    template_name = 'teacher_edited.html'
 
     def get_form(self, form_class=None):
         return super(UpdateView, self).get_form(form_class)

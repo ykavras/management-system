@@ -39,6 +39,7 @@ class StudentFormMixin:
 
 
 class StudentCreate(StudentFormMixin, PermissionRequiredMixin, CreateView):
+    template_name = 'student_create.html'
     pass
 
 
@@ -58,7 +59,7 @@ class StudentDetail(StudentFormMixin, PermissionRequiredMixin, DetailView):
 
 
 class StudentDelete(StudentFormMixin, PermissionRequiredMixin, DeleteView):
-    template_name = 'student_form.html'
+    template_name = 'student_delete.html'
     model = Student
     success_url = reverse_lazy('student:list')
 

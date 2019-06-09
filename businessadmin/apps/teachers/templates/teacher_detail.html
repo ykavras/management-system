@@ -1,23 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% include 'teacher_top.html' %}
-<p>Adı Soyadı: {{object.member.user.get_full_name}}</p>
-<p>Email: {{object.member.user.email}}</p>
-<p>Tel: {{object.phone}}</p>
+{% extends 'base.html' %}{% load staticfiles %}
+{% block App %}
+    <div class="container">
+        <h1 class="text-center mt-4 mb-4">Öğretmen: {{ object.member.user.get_full_name }}</h1>
+        <div class="bg-light rounded box-shadow p-2">
+            <div class="media text-muted pt-1">
+                <div class="media-body pb-1 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        <strong class="text-gray-dark">Adı Soyadı</strong>
+                    </div>
+                    <span class="d-block">{{ object.member.user.get_full_name }}</span>
+                </div>
+            </div>
+            <div class="media text-muted pt-1">
+                <div class="media-body pb-1 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        <strong class="text-gray-dark">Telefon</strong>
+                    </div>
+                    <span class="d-block">{{ object.phone }}</span>
+                </div>
+            </div>
+            <div class="media text-muted pt-1">
+                <div class="media-body pb-1 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        <strong class="text-gray-dark">E-Posta</strong>
+                    </div>
+                    <span class="d-block">{{ object.member.user.email }}</span>
+                </div>
+            </div>
+        </div>
 
-<li>
-    <a href="{% url 'teacher:get_business_list' object.pk  %}">İşletme Listesi</a>
-    <a href="{% url 'teacher:get_student_list' object.pk %}">Öğrenci Listesi</a>
-</li>
+        <div class="btn-group d-flex mt-2 mb-2">
+            <a class="w-100 btn btn-primary" href="{% url 'teacher:get_business_list' object.pk %}" title="İşletme Listesi">İşletme Listesi</a>
+            <a class="w-100 btn btn-info" href="{% url 'teacher:get_student_list' object.pk %}" title="Öğrenci Listesi">Öğrenci Listesi</a>
+        </div>
 
-<li>
-    <a href="{% url 'teacher:edit' object.pk %}">Düzenle</a> <a href="{% url 'teacher:delete' object.pk %}">Sil</a>
-</li>
-
-</body>
-</html>
+        <div class="btn-group d-flex">
+            <a class="w-100 btn btn-warning" href="{% url 'teacher:edit' object.pk %}" title="Düzenle">Düzenle</a>
+            <a class="w-100 btn btn-danger" href="{% url 'teacher:delete' object.pk %}" title="Sil">Sil</a>
+        </div>
+    </div>
+{% endblock %}

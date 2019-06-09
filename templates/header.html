@@ -1,0 +1,58 @@
+{% load staticfiles %}
+{% url 'core:home' as url_core %}
+{% url 'business:list' as url_business %}
+{% url 'student:list' as url_student %}
+{% url 'teacher:list' as url_teacher %}
+{% url 'business:student_thought' user.member.student.scholarship.pk as url_student_thought %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-lg">
+    <a class="navbar-brand" href="/">
+        <img src="{% static 'img/icons/login.svg' %}" width="30" height="30" class="d-inline-block align-items-center" alt="login">
+        Yönetim Sistemi
+    </a>
+    <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+            {% if user.is_authenticated %}
+                {% if not user.member.is_student %}
+                    {% if user.member.is_coordinator %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == url_business %}active{% endif %}" href="{% url 'business:list' %}">İşletmeler</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == url_business %}active{% endif %}" href="{% url 'business:list' %}">İşletmeler</a>
+                        </li>
+                        <li class="nav-item" style="display: none">
+                            <a class="nav-link {% if request.path == url_core %}active{% endif %}" href="{% url 'core:home' %}">Ana Sayfa</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == url_student %}active{% endif %}" href="{% url 'student:list' %}">Öğrenciler</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == url_teacher %}active{% endif %}" href="{% url 'teacher:list' %}">Öğretmenler</a>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == url_student_thought %}active{% endif %}"
+                           href="{% url 'business:student_thought' user.member.student.scholarship.pk %}">
+                            İşletme hakkındaki görüşleriniz
+                            <span class="sr-only">{{ user.member.student.scholarship.pk }}</span>
+                        </a>
+                    </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link text-danger" href="{% url 'core:logout' %}">Çıkış</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

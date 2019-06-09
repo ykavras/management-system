@@ -40,7 +40,7 @@ class MemberDetail(MemberPermissionMixin, PermissionRequiredMixin, DetailView):
 
 
 class MemberDelete(MemberPermissionMixin, PermissionRequiredMixin, DeleteView):
-    template_name = 'member_form.html'
+    template_name = 'member_delete.html'
     model = User
     success_url = reverse_lazy('member:list')
 

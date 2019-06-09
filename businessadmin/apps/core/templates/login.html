@@ -1,16 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Giriş</title>
-</head>
-<body>
-
-<form method="post">
-    {% csrf_token %}
-    kullanıcı adı : <input name="username" required>
-    parola: <input name="password" required>
-    <button type="submit">Gönder</button>
-</form>
-</body>
-</html>
+{% extends 'base.html' %}{% load staticfiles %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" type="text/css">
+{% endblock %}
+{% block App %}
+    <form class="form-signin text-center" method="post">
+        {% csrf_token %}
+        <img class="mb-4" src="{% static 'img/icons/login.svg' %}" alt="login" width="72" height="72">
+        <h1 class="h4 mb-3 font-weight-normal">Lütfen Giriş Yapınız.</h1>
+        <label for="username" class="sr-only">Kullanıcı Adı</label>
+        <input type="text" id="username" name="username" class="form-control" placeholder="Kullanıcı Adı" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Parola" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Giriş Yap</button>
+        <p class="mt-5 mb-3 text-muted">&copy; Yönetim Sistemi 2019</p>
+    </form>
+{% endblock %}

@@ -1,21 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<ul>
-    <li>{{object.group}}</li>
-    <li>{{object.get_period_display}}</li>
-    <li>{{object.start_date}} - {{object.finish_date}}</li>
-    <li>{{object.piece}} Kişi</li>
-    <li>{% for branch in object.branch.all %}<span>{{branch.name}}</span>{% if not forloop.first %}, {%endif%}{%endfor%}
-    </li>
-    <li>{{object.qualifications}}</li>
-</ul>
-
-<ul><li> <a href="{% url 'business:qualification_edit' object.business.pk  object.pk %} ">Düzenle</a>
-        <a href="{% url 'business:qualification_delete'  object.business.pk  object.pk %} ">Sil</a></li></ul>
-</body>
-</html>
+{% extends 'base.html' %}{% load staticfiles %}
+{% block App %}
+    <div class="container">
+        <h1 class="text-center mt-4">Öğrenci İhtiyacı</h1>
+        <div class="bg-light rounded box-shadow p-2 mb-4 mt-4">
+            <div class="media text-muted pt-1">
+                <div class="media-body pb-1 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        <strong class="text-gray-dark">Grup</strong>
+                    </div>
+                    <span class="d-block">{{ object.group }}</span>
+                </div>
+            </div>
+            <div class="media text-muted pt-1">
+                <div class="media-body pb-1 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        <strong class="text-gray-dark">Haftalık Periyot</strong>
+                    </div>
+                    <span class="d-block">{{ object.get_period_display }}</span>
+                </div>
+            </div>
+            <div class="media text-muted pt-1">
+                <div class="media-body pb-1 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        <strong class="text-gray-dark">Başlangıç Tarihi</strong>
+                    </div>
+                    <span class="d-block">{% if object.start_date %}{{ object.start_date }}{% else %}Girilmedi.{% endif %}</span>
+                </div>
+            </div>
+            <div class="media text-muted pt-1">
+                <div class="media-body pb-1 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        <strong class="text-gray-dark">Bitiş Tarihi</strong>
+                    </div>
+                    <span class="d-block">{% if object.finish_date %}{{ object.finish_date }}{% else %}Girilmedi.{% endif %}</span>
+                </div>
+            </div>
+            <div class="media text-muted pt-1">
+                <div class="media-body pb-1 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        <strong class="text-gray-dark">Kişi Sayısı</strong>
+                    </div>
+                    <span class="d-block">{{ object.piece }}</span>
+                </div>
+            </div>
+            <div class="media text-muted pt-1">
+                <div class="media-body pb-1 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        <strong class="text-gray-dark">Dallar</strong>
+                    </div>
+                    <span class="d-block">
+                        {% for branch in object.branch.all %}<span>{{ branch.name }}</span>{% if not forloop.first %}, {% endif %}{% endfor %}
+                    </span>
+                </div>
+            </div>
+            <div class="media text-muted pt-1">
+                <div class="media-body pb-1 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        <strong class="text-gray-dark">Nitelikler</strong>
+                    </div>
+                    <span class="d-block">{{ object.qualifications }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="btn-group d-flex">
+            <a class="btn btn-warning flex-fill"
+               href="{% url 'business:qualification_edit' object.business.pk  object.pk %} "
+               title="Düzenle">Düzenle</a>
+            <a class="btn btn-danger flex-fill"
+               href="{% url 'business:qualification_delete'  object.business.pk  object.pk %} "
+               title="Sil">Sil</a>
+        </div>
+    </div>
+{% endblock %}

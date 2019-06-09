@@ -1,20 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>List</title>
-</head>
-<body>
-{% include 'student_top.html' %}
-
-<a href="{% url 'student:get_list' %}">Öğrenci Listesi al</a>
-<ul>
-    {% for student in object_list %}
-    <li>{{student}} <a href="{% url 'student:detail' student.pk %}">Görüntüle</a><a
-            href="{% url 'student:edit' student.pk %}">Düzenle</a>
-        <a href="{% url 'student:delete' student.pk %}">Sil</a>
-    </li>
-    {% endfor %}
-</ul>
-</body>
-</html>
+{% extends 'base.html' %}{% load staticfiles %}
+{% block App %}
+    <div class="container">
+        {% include 'student_top.html' %}
+        <ul class="list-group">
+            {% for student in object_list %}
+                <li class="list-group-item mb-3">
+                    <div class="d-lg-flex justify-content-between align-items-center student-text">
+                        <span class="badge badge-primary badge-pill mr-2">Sıra: {{ student.pk }}</span>
+                        <div class="mt-1 mb-1"><b>Adı Soyadı: </b>{{ student.member.user.first_name }} {{ student.member.user.last_name }}</div>
+                        <div class="mt-1 mb-1"><b>Okul Numarası: </b>{{ student.number }}</div>
+                        <div class="mt-1 mb-1"><b>Dönemi: </b>{{ student.term }}</div>
+                    </div>
+                    <div class="mt-lg-4 d-flex align-items-center justify-content-center flex-column flex-sm-row">
+                        <a class="w-100 flex-fill btn btn-primary btn-sm mt-1" href="{% url 'student:detail' student.pk %}">Görüntüle</a>
+                        <a class="w-100 flex-fill btn btn-warning btn-sm mt-1 ml-1 mr-1" href="{% url 'student:edit' student.pk %}">Düzenle</a>
+                        <a class="w-100 flex-fill btn btn-danger btn-sm mt-1" href="{% url 'student:delete' student.pk %}">Sil</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

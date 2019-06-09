@@ -1,16 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p}}
-    <button type="submit">Kaydet</button>
-</form>
-</body>
-</html>
+{% extends 'base.html' %}{% load staticfiles %}
+{% block styles %}
+    <style type="text/css">
+        label {
+            font-weight: bold
+        }
+    </style>
+{% endblock %}
+{% block App %}
+    <div class="container">
+        <h1 class="text-center mt-4 mb-2">Ekle</h1>
+        <a class="btn btn-outline-primary btn-sm mb-2" href="{% url 'student:create' %}">Öğrenci Ekle</a>
+        <form method="POST" class="mb-2">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="w-100 btn btn-primary" type="submit">Kaydet</button>
+        </form>
+        {% for message in messages %}
+            <p class="alert alert-warning mt-2">{{ message }}</p>
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript">
+        $('select,input,textarea').addClass('form-control');
+        $('input[name=start_date],input[name=finish_date]').attr('type', 'date');
+        $('p').addClass('form-group');
+    </script>
+{% endblock %}

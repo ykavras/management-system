@@ -1,19 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>List</title>
-</head>
-<body>
-{% include 'member_top.html' %}
-
-<ul>
-    {% for member in object_list %}
-    <li>{{member}} <a href="{% url 'member:detail' member.pk %}">Görüntüle</a><a
-            href="{% url 'member:edit' member.pk %}">Düzenle</a>
-        <a href="{% url 'member:delete' member.pk %}">Sil</a>
-    </li>
-    {% endfor %}
-</ul>
-</body>
-</html>
+{% extends 'base.html' %}{% load staticfiles %}
+{% block App %}
+    <div class="container">
+        {% include 'member_top.html' %}
+        {% for member in object_list %}
+            <div class="card border-primary mb-3">
+                <div class="card-header">
+                    <div><b>Kullanıcı Adı: </b>{{ member }}</div>
+                    <div><b>Adı: </b>{{ member.first_name }}</div>
+                    <div><b>Soyadı: </b>{{ member.last_name }}</div>
+                </div>
+                <div class="btn-group d-flex">
+                    <a class="btn btn-primary w-100" href="{% url 'member:detail' member.pk %}" title="Görüntüle">Görüntüle</a>
+                    <a class="btn btn-warning w-100" href="{% url 'member:edit' member.pk %}" title="Düzenle">Düzenle</a>
+                    <a class="btn btn-danger w-100" href="{% url 'member:delete' member.pk %}" title="Sil">Sil</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
