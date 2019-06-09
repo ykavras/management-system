@@ -3,6 +3,7 @@
 {% url 'business:list' as url_business %}
 {% url 'student:list' as url_student %}
 {% url 'teacher:list' as url_teacher %}
+{% url 'member:list' as url_users %}
 {% url 'business:student_thought' user.member.student.scholarship.pk as url_student_thought %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-lg">
     <a class="navbar-brand" href="/">
@@ -27,6 +28,9 @@
                             <a class="nav-link {% if request.path == url_business %}active{% endif %}" href="{% url 'business:list' %}">İşletmeler</a>
                         </li>
                     {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == url_users %}active{% endif %}" href="{% url 'member:list' %}">Kullanıcılar</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link {% if request.path == url_business %}active{% endif %}" href="{% url 'business:list' %}">İşletmeler</a>
                         </li>
