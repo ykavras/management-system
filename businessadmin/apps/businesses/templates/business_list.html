@@ -1,21 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>List</title>
-</head>
-<body>
-{% include 'business_top.html' %}
-<ul>
-    {% for business in object_list %}
-    <li>{{business}} <a href="{% url 'business:detail' business.pk %}">Görüntüle</a>
-        <a href="{% url 'business:edit' business.pk %}">Düzenle</a>
-        <a href="{% url 'business:get_student_list' business.pk %}">Öğrenci Listesi Al</a>
-        <a href="{% url 'business:delete' business.pk %}">Sil</a>
-    </li>
-    {% endfor %}
-</ul>
-
-<a href="{% url 'business:get_list' %}">İşletme Listesi Al</a>
-</body>
-</html>
+{% extends 'base.html' %}{% load staticfiles %}
+{% block App %}
+    <div class="container">
+        {% include 'business_top.html' %}
+        {% for business in object_list %}
+            <div class="card mt-lg-4">
+                <h5 class="card-header">{{ business }}</h5>
+                <div class="card-body">
+                    <p class="card-text">
+                        <b>Adres: </b>
+                        {{ business.address }}
+                    </p>
+                    <p class="card-text">
+                        <b>E-Posta: </b>
+                        <a target="_blank" href="mailto:{{ business.email }}" title="{{ business.email }}">{{ business.email }}</a>
+                    </p>
+                    <p class="card-text">
+                        <b>Telefon: </b>
+                        <a target="_blank" href="tel:{{ business.phone }}" title="{{ business.phone }}">{{ business.phone }}</a>
+                    </p>
+                    <a class="btn btn-info" href="{% url 'business:detail' business.pk %}">Görüntüle</a>
+                    <a class="btn btn-primary" href="{% url 'business:get_student_list' business.pk %}">Öğrenci Listesi Al</a>
+                    <a class="btn btn-warning" href="{% url 'business:edit' business.pk %}">Düzenle</a>
+                    <a class="btn btn-danger" href="{% url 'business:delete' business.pk %}">Sil</a>
+                </div>
+            </div>
+        {% endfor %}
+        <a class="btn btn-primary mt-lg-2" href="{% url 'business:get_list' %}">İşletme Listesi Al</a>
+    </div>
+{% endblock %}
