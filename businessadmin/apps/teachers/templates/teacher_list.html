@@ -12,18 +12,20 @@
                         </div>
                         {% if teacher.is_chief %} <span class="ml-2 p-1 alert-warning" style="font-size:12px;">( Alan Şefi )</span> {% endif %}
                     </div>
-                    <div class="d-md-flex mt-2 mb-2 align-items-center justify-content-between">
-                        <a class="flex-fill ml-1 mr-1 mt-1 btn btn-primary" title="İşletme Listesi" href="{% url 'teacher:get_business_list' teacher.pk %}">İşletme
-                            Listesi</a>
-                        <a class="flex-fill ml-1 mr-1 mt-1 btn btn-info" title="Öğrenci Listesi" href="{% url 'teacher:get_student_list' teacher.pk %}">Öğrenci
-                            Listesi</a>
-                        <a class="flex-fill ml-1 mr-1 mt-1 btn btn-success" title="Görüntüle" href="{% url 'teacher:detail' teacher.pk %}">Görüntüle</a>
-                        <a class="flex-fill ml-1 mr-1 mt-1 btn btn-warning" title="Düzenle" href="{% url 'teacher:edit' teacher.pk %}">Düzenle</a>
-                        <a class="flex-fill ml-1 mr-1 mt-1 btn btn-danger" title="Sil" href="{% url 'teacher:delete' teacher.pk %}">Sil</a>
-                    </div>
                     <p class="card-text">
                         <small class="text-muted"><b>Kayıt Tarihi: </b>{{ teacher.member.user.date_joined }}</small>
                     </p>
+                    <div class="d-md-flex mt-2 align-items-center justify-content-between">
+                        <a class="w-100 btn-sm ml-1 mr-1 mt-1 btn btn-primary" title="İşletme Listesi" href="{% url 'teacher:get_business_list' teacher.pk %}">İşletme
+                            Listesi</a>
+                        <a class="w-100 btn-sm ml-1 mr-1 mt-1 btn btn-info" title="Öğrenci Listesi" href="{% url 'teacher:get_student_list' teacher.pk %}">Öğrenci
+                            Listesi</a>
+                    </div>
+                    <div class="d-md-flex mt-2 align-items-center justify-content-between">
+                        <a class="w-100 btn-sm ml-1 mr-1 mt-1 btn btn-success" title="Görüntüle" href="{% url 'teacher:detail' teacher.pk %}">Görüntüle</a>
+                        <a class="w-100 btn-sm ml-1 mr-1 mt-1 btn btn-warning" title="Düzenle" href="{% url 'teacher:edit' teacher.pk %}">Düzenle</a>
+                        <a class="w-100 btn-sm ml-1 mr-1 mt-1 btn btn-danger" title="Sil" href="{% url 'teacher:delete' teacher.pk %}">Sil</a>
+                    </div>
                 </div>
             </div>
         {% endfor %}
