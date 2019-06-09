@@ -22,7 +22,7 @@
                         <a class="flex-fill ml-1 mr-1 mt-1 btn btn-danger" title="Sil" href="{% url 'teacher:delete' teacher.pk %}">Sil</a>
                     </div>
                     <p class="card-text">
-                        <small class="text-muted">{{ teacher.member.user.date_joined }}</small>
+                        <small class="text-muted"><b>Kayıt Tarihi: </b>{{ teacher.member.user.date_joined }}</small>
                     </p>
                 </div>
             </div>
