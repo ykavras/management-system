@@ -1,22 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>List</title>
-</head>
-<body>
-{% include 'teacher_top.html' %}
-
-<ul>
-    {% for teacher in object_list %}
-    <li>{{teacher}}{% if teacher.is_chief %} <span>| Alan Şefi |</span> {% endif %}
-        <a href="{% url 'teacher:get_business_list' teacher.pk  %}">İşletme Listesi</a>
-        <a href="{% url 'teacher:get_student_list' teacher.pk %}">Öğrenci Listesi</a>
-        <a href="{% url 'teacher:detail' teacher.pk %}">Görüntüle</a>
-        <a href="{% url 'teacher:edit' teacher.pk %}">Düzenle</a>
-        <a href="{% url 'teacher:delete' teacher.pk %}">Sil</a>
-    </li>
-    {% endfor %}
-</ul>
-</body>
-</html>
+{% extends 'base.html' %}{% load staticfiles %}
+{% block App %}
+    <div class="container">
+        {% include 'teacher_top.html' %}
+        {% for teacher in object_list %}
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title d-flex align-items-center">
+                        <span class="badge badge-primary badge-pill mr-2">Sıra: {{ teacher.pk }}</span>
+                        <div class="d-flex align-items-center">
+                            <b>İsim Soyisim:</b><span class="ml-1">{{ teacher.member.user.first_name }} {{ teacher.member.user.last_name }}</span>
+                        </div>
+                        {% if teacher.is_chief %} <span class="ml-2 p-1 alert-warning" style="font-size:12px;">( Alan Şefi )</span> {% endif %}
+                    </div>
+                    <div class="d-md-flex mt-2 mb-2 align-items-center justify-content-between">
+                        <a class="flex-fill ml-1 mr-1 mt-1 btn btn-primary" title="İşletme Listesi" href="{% url 'teacher:get_business_list' teacher.pk %}">İşletme
+                            Listesi</a>
+                        <a class="flex-fill ml-1 mr-1 mt-1 btn btn-info" title="Öğrenci Listesi" href="{% url 'teacher:get_student_list' teacher.pk %}">Öğrenci
+                            Listesi</a>
+                        <a class="flex-fill ml-1 mr-1 mt-1 btn btn-success" title="Görüntüle" href="{% url 'teacher:detail' teacher.pk %}">Görüntüle</a>
+                        <a class="flex-fill ml-1 mr-1 mt-1 btn btn-warning" title="Düzenle" href="{% url 'teacher:edit' teacher.pk %}">Düzenle</a>
+                        <a class="flex-fill ml-1 mr-1 mt-1 btn btn-danger" title="Sil" href="{% url 'teacher:delete' teacher.pk %}">Sil</a>
+                    </div>
+                    <p class="card-text">
+                        <small class="text-muted">{{ teacher.member.user.date_joined }}</small>
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
