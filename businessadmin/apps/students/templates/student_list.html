@@ -1,20 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>List</title>
-</head>
-<body>
-{% include 'student_top.html' %}
-
-<a href="{% url 'student:get_list' %}">Öğrenci Listesi al</a>
-<ul>
-    {% for student in object_list %}
-    <li>{{student}} <a href="{% url 'student:detail' student.pk %}">Görüntüle</a><a
-            href="{% url 'student:edit' student.pk %}">Düzenle</a>
-        <a href="{% url 'student:delete' student.pk %}">Sil</a>
-    </li>
-    {% endfor %}
-</ul>
-</body>
-</html>
+{% extends 'base.html' %}{% load staticfiles %}
+{% block App %}
+    {% include 'student_top.html' %}
+    <div class="container">
+        <ul class="list-group">
+            {% for student in object_list %}
+                <li class="list-group-item mb-3">
+                    <div class="d-lg-flex justify-content-between align-items-center student-text">
+                        <span class="badge badge-primary badge-pill mr-2">Sıra: {{ student.pk }}</span>
+                        <div><b>Adı Soyadı: </b>{{ student.member.user.first_name }} {{ student.member.user.last_name }}</div>
+                        <div><b>Sınıfı: </b>{{ student.klass }}</div>
+                        <div><b>Okul Numarası: </b>{{ student.number }}</div>
+                        <div><b>E-Posta: </b>{{ student.member.user.email }}</div>
+                        <div><b>Dönemi: </b>{{ student.term }}</div>
+                    </div>
+                    <div class="mt-lg-4 d-flex align-items-center justify-content-center">
+                        <a class="flex-fill btn btn-primary" href="{% url 'student:detail' student.pk %}">Görüntüle</a>
+                        <a class="flex-fill btn btn-warning ml-2 mr-2" href="{% url 'student:edit' student.pk %}">Düzenle</a>
+                        <a class="flex-fill btn btn-danger" href="{% url 'student:delete' student.pk %}">Sil</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

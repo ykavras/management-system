@@ -1,4 +1,14 @@
 {% extends 'base.html' %}
 {% block App %}
-    <div class="background"></div>
+    <div class="background">
+        {% if request.user.email %}
+            <h1 class="title">HOŞGELDİNİZ<br>{{ request.user.username }}</h1>
+        {% else %}
+            <h1 class="title">
+                Hoşgeldiniz giriş yapmak için
+                <br>
+                <a href="/giris" title="Giriş Yap">buraya</a> tıklayınız.
+            </h1>
+        {% endif %}
+    </div>
 {% endblock %}

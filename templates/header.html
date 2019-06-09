@@ -1,15 +1,4 @@
 {% load staticfiles %}
-{% block styles %}
-    <style type="text/css">
-        .background {
-            background: transparent url("{% static 'img/background.jpg' %}") no-repeat center;
-            -webkit-background-size: cover;
-            background-size: cover;
-            width: 100%;
-            height: calc(100vh - 58px);
-        }
-    </style>
-{% endblock %}
 {% url 'core:home' as url_core %}
 {% url 'business:list' as url_business %}
 {% url 'student:list' as url_student %}
