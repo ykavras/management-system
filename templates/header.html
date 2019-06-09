@@ -13,18 +13,24 @@
         <ul class="navbar-nav">
             {% if user.is_authenticated %}
                 {% if not user.member.is_student %}
-                    <li class="nav-item" style="display: none">
-                        <a class="nav-link {% if request.path == url_core %}active{% endif %}" href="{% url 'core:home' %}">Ana Sayfa</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == url_business %}active{% endif %}" href="{% url 'business:list' %}">İşletmeler</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == url_student %}active{% endif %}" href="{% url 'student:list' %}">Öğrenciler</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == url_teacher %}active{% endif %}" href="{% url 'teacher:list' %}">Öğretmenler</a>
-                    </li>
+                    {% if user.member.is_coordinator %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == url_business %}active{% endif %}" href="{% url 'business:list' %}">İşletmeler</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == url_business %}active{% endif %}" href="{% url 'business:list' %}">İşletmeler</a>
+                        </li>
+                        <li class="nav-item" style="display: none">
+                            <a class="nav-link {% if request.path == url_core %}active{% endif %}" href="{% url 'core:home' %}">Ana Sayfa</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == url_student %}active{% endif %}" href="{% url 'student:list' %}">Öğrenciler</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == url_teacher %}active{% endif %}" href="{% url 'teacher:list' %}">Öğretmenler</a>
+                        </li>
+                    {% endif %}
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == url_student_thought %}active{% endif %}"
