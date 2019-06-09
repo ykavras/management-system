@@ -1,16 +1,18 @@
 from django.views.generic import ListView, DetailView, View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.shortcuts import HttpResponse, get_object_or_404
+from django.shortcuts import HttpResponse, get_object_or_404, redirect
 from django.forms import model_to_dict
 from django.utils.timezone import now
+from django.contrib import messages
 
 from openpyxl import Workbook
 
 from .models import Business, StudentQualification, ScholarShip
 from ..members.models import Member
 from ..students.models import Student
+from ..terms.models import Term
 
 
 class BusinessPermissionMixin:
@@ -198,8 +200,14 @@ class ExportStudentView(View):
 
         ws.append(['ADI', 'Okul Numarası', 'Sınıfı'])
         FIELDS = ['name', 'number', 'klass']
-
-        for item in business.scholarships.all():
+        try:
+            last_term = Term.objects.filter(active=False).last()
+        except:
+            messages.error(request, 'Aktif dönem bulunamadı')
+            print(dir(request))
+            return redirect('business:list')
+            # return redirect(request.get_full_path)
+        for item in business.scholarships.filter(student__term=last_term):
             rows = []
             for field in FIELDS:
                 if field == 'name':
