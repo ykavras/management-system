@@ -18,13 +18,17 @@
                         <b>Telefon: </b>
                         <a target="_blank" href="tel:{{ business.phone }}" title="{{ business.phone }}">{{ business.phone }}</a>
                     </p>
-                    <a class="btn btn-info" href="{% url 'business:detail' business.pk %}">Görüntüle</a>
-                    <a class="btn btn-primary" href="{% url 'business:get_student_list' business.pk %}">Öğrenci Listesi Al</a>
-                    <a class="btn btn-warning" href="{% url 'business:edit' business.pk %}">Düzenle</a>
-                    <a class="btn btn-danger" href="{% url 'business:delete' business.pk %}">Sil</a>
+                    <div class="w-100 d-flex flex-column flex-md-row">
+                        <a class="flex-fill mt-1 mr-1 btn btn-info" href="{% url 'business:detail' business.pk %}">Görüntüle</a>
+                        <a class="flex-fill mt-1 mr-1 btn btn-primary" href="{% url 'business:get_student_list' business.pk %}">Öğrenci Listesi Al</a>
+                        <a class="flex-fill mt-1 mr-1 btn btn-warning" href="{% url 'business:edit' business.pk %}">Düzenle</a>
+                        <a class="flex-fill mt-1 mr-1 btn btn-danger" href="{% url 'business:delete' business.pk %}">Sil</a>
+                    </div>
                 </div>
             </div>
         {% endfor %}
-        <a class="btn btn-primary mt-4 mb-4" href="{% url 'business:get_list' %}">İşletme Listesi Al</a>
+        <div class="text-center">
+            <a class="btn btn-primary mt-4 mb-4 w-50" href="{% url 'business:get_list' %}">İşletme Listesi Al</a>
+        </div>
     </div>
 {% endblock %}
