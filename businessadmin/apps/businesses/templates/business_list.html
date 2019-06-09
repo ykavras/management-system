@@ -19,10 +19,10 @@
                         <a target="_blank" href="tel:{{ business.phone }}" title="{{ business.phone }}">{{ business.phone }}</a>
                     </p>
                     <div class="w-100 d-flex flex-column flex-md-row">
-                        <a class="flex-fill mt-1 mr-1 btn btn-info" href="{% url 'business:detail' business.pk %}">Görüntüle</a>
-                        <a class="flex-fill mt-1 mr-1 btn btn-primary" href="{% url 'business:get_student_list' business.pk %}">Öğrenci Listesi Al</a>
-                        <a class="flex-fill mt-1 mr-1 btn btn-warning" href="{% url 'business:edit' business.pk %}">Düzenle</a>
-                        <a class="flex-fill mt-1 mr-1 btn btn-danger" href="{% url 'business:delete' business.pk %}">Sil</a>
+                        <a class="flex-fill mt-1 mr-1 btn btn-info btn-sm" href="{% url 'business:detail' business.pk %}">Görüntüle</a>
+                        <a class="flex-fill mt-1 mr-1 btn btn-primary btn-sm" href="{% url 'business:get_student_list' business.pk %}">Öğrenci Listesi Al</a>
+                        <a class="flex-fill mt-1 mr-1 btn btn-warning btn-sm" href="{% url 'business:edit' business.pk %}">Düzenle</a>
+                        <a class="flex-fill mt-1 mr-1 btn btn-danger btn-sm" href="{% url 'business:delete' business.pk %}">Sil</a>
                     </div>
                 </div>
             </div>

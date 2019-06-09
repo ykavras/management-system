@@ -11,10 +11,10 @@
                         <div class="mt-1 mb-1"><b>Okul Numarası: </b>{{ student.number }}</div>
                         <div class="mt-1 mb-1"><b>Dönemi: </b>{{ student.term }}</div>
                     </div>
-                    <div class="mt-lg-4 d-flex align-items-center justify-content-center">
-                        <a class="flex-fill btn btn-primary" href="{% url 'student:detail' student.pk %}">Görüntüle</a>
-                        <a class="flex-fill btn btn-warning ml-2 mr-2" href="{% url 'student:edit' student.pk %}">Düzenle</a>
-                        <a class="flex-fill btn btn-danger" href="{% url 'student:delete' student.pk %}">Sil</a>
+                    <div class="mt-lg-4 d-flex align-items-center justify-content-center flex-column flex-sm-row">
+                        <a class="w-100 flex-fill btn btn-primary btn-sm mt-1" href="{% url 'student:detail' student.pk %}">Görüntüle</a>
+                        <a class="w-100 flex-fill btn btn-warning btn-sm mt-1 ml-1 mr-1" href="{% url 'student:edit' student.pk %}">Düzenle</a>
+                        <a class="w-100 flex-fill btn btn-danger btn-sm mt-1" href="{% url 'student:delete' student.pk %}">Sil</a>
                     </div>
                 </li>
             {% endfor %}
