@@ -28,7 +28,7 @@ class LoginView(View):
             login(request, user)
             return redirect('core:home')
         else:
-            messages.error('Giriş bilgileriniz doğrulanamadı')
+            messages.error(request, 'Giriş bilgileriniz doğrulanamadı')
             return redirect('core:login')
 
 
