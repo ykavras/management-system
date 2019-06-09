@@ -47,4 +47,4 @@ class MemberDelete(MemberPermissionMixin, PermissionRequiredMixin, DeleteView):
 
 class MemberList(MemberPermissionMixin, PermissionRequiredMixin, ListView):
     template_name = 'member_list.html'
-    model = User
+    model = Member

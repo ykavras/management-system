@@ -6,8 +6,8 @@
             <div class="card border-primary mb-3">
                 <div class="card-header">
                     <div><b>Kullanıcı Adı: </b>{{ member }}</div>
-                    <div><b>Adı: </b>{{ member.first_name }}</div>
-                    <div><b>Soyadı: </b>{{ member.last_name }}</div>
+                    <div><b>Adı: </b>{{ member.user.first_name }}</div>
+                    <div><b>Soyadı: </b>{{ member.user.last_name }}</div>
                 </div>
                 <div class="btn-group d-flex">
                     <a class="btn btn-primary w-100" href="{% url 'member:detail' member.pk %}" title="Görüntüle">Görüntüle</a>
