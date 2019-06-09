@@ -1,15 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-<form method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">Kaydet</button>
-</form>
-</body>
-</html>
+{% extends 'base.html' %}{% load staticfiles %}
+{% block styles %}
+    <style type="text/css">
+        label {
+            font-weight: bold
+        }
+    </style>
+{% endblock %}
+{% block App %}
+    <div class="container">
+        <h1 class="text-center mt-4 mb-4">ÖĞRENCİ EKLE</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary w-100 mb-4" type="submit">Kaydet</button>
+        </form>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript">
+        $('select,input,textarea').addClass('form-control');
+        $('input[name=start_date],input[name=finish_date]').attr('type', 'date');
+        $('p').addClass('form-group');
+    </script>
+{% endblock %}

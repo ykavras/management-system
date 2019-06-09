@@ -2,9 +2,9 @@
 {% block App %}
     <div class="container">
         {% include 'business_top.html' %}
-        <h1 class="text-center mt-4">{{ object.name }}</h1>
+        <h1 class="text-center mt-4 mb-4 h2">{{ object.name }}</h1>
 
-        <div class="bg-white rounded box-shadow">
+        <div class="bg-light rounded box-shadow p-2">
             <div class="media text-muted pt-1">
                 <div class="media-body pb-1 mb-0 small lh-125 border-bottom border-gray">
                     <div class="d-flex justify-content-between align-items-center w-100">
@@ -72,39 +72,51 @@
             </div>
         </div>
 
-        <h2 class="text-center mt-4 mb-4">Bu işletmedeki öğrencilerimiz</h2>
+        <div class="bg-light mt-5 mb-5 p-1">
+            <h2 class="text-center pt-3 mb-4">Bu işletmedeki öğrencilerimiz</h2>
+            <ul class="list-group">
+                {% for ss in object.scholarships.all %}
+                    <li class="list-group-item mb-3">
+                        <div class="d-lg-flex justify-content-between align-items-center student-text">
+                            <span class="badge badge-primary badge-pill">Sıra: {{ ss.pk }}</span>
+                            <div><b>Adı Soyadı: </b>{{ ss.student.member.user.get_full_name }}</div>
+                            <div><b>Sınıfı: </b>{{ ss.student.klass }}</div>
+                            <div><b>Okul Numarası: </b>{{ ss.student.number }}</div>
+                            <div><b>E-Posta: </b>{{ ss.student.member.user.email }}</div>
+                            <div><b>Dönemi: </b>{{ ss.student.term }}</div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
 
-        <ul class="list-group">
-            {% for ss in object.scholarships.all %}
-                <li class="list-group-item mb-3">
-                    <div class="d-lg-flex justify-content-between align-items-center student-text">
-                        <span class="badge badge-primary badge-pill">Sıra: {{ ss.pk }}</span>
-                        <div><b>Adı Soyadı: </b>{{ ss.student.member.user.get_full_name }}</div>
-                        <div><b>Sınıfı: </b>{{ ss.student.klass }}</div>
-                        <div><b>Okul Numarası: </b>{{ ss.student.number }}</div>
-                        <div><b>E-Posta: </b>{{ ss.student.member.user.email }}</div>
-                        <div><b>Dönemi: </b>{{ ss.student.term }}</div>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
 
-
-        <h3 class="text-center mt-4 mb-4">İşletmenin Stajer İhtiyacı</h3>
-        <ul>
-            {% for qualification in object.qualificaions.all %}
-                <li>
-                    {% for branch in qualification.branch.all %}<span>{{ branch.name }} </span>{% endfor %}- {{ qualification.group }} -
-                    {{ qualification.piece }} Kişi
-                    <a href="{% url 'business:qualification_detail' object.pk  qualification.pk %}">Görüntüle</a>
-                    <a href="{% url 'business:qualification_edit' object.pk  qualification.pk %} ">Düzenle</a>
-                    <a href="{% url 'business:qualification_delete'  object.pk  qualification.pk %} ">Sil</a>
-                </li>
-            {% endfor %}
-        </ul>
+        <div class="bg-light mt-4 mb-4 p-2">
+            <h3 class="text-center pt-3 pb-2">İşletmenin Stajer İhtiyacı</h3>
+            <ul class="list-group">
+                {% for qualification in object.qualificaions.all %}
+                    <li class="list-group-item mb-3">
+                        <div>
+                            <span class="badge badge-primary badge-pill">Kişi Sayısı: {{ qualification.piece }}</span>
+                        </div>
+                        <div class="mb-1 mt-1">
+                            <b>Dal:</b>
+                            {% for branch in qualification.branch.all %}<span>{{ branch.name }} </span>{% endfor %}
+                        </div>
+                        <div>
+                            <b>Grup: </b>{{ qualification.group }}
+                        </div>
+                        <div class="btn-group d-flex mt-2">
+                            <a class="btn btn-primary" href="{% url 'business:qualification_detail' object.pk  qualification.pk %}" title="Görüntüle">Görüntüle</a>
+                            <a class="btn btn-warning" href="{% url 'business:qualification_edit' object.pk  qualification.pk %} " title="Düzenle">Düzenle</a>
+                            <a class="btn btn-danger" href="{% url 'business:qualification_delete'  object.pk  qualification.pk %} " title="Sil">Sil</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
         <div class="btn-group mt-1 mb-4 d-flex">
             <a class="btn btn-primary" href="{% url 'business:qualification_create' object.pk %}" title="Öğrenci İhtiyacı Ekle">Öğrenci İhtiyacı Ekle</a>
         </div>
-
     </div>
 {% endblock %}
