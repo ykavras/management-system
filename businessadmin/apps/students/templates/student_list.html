@@ -1,17 +1,15 @@
 {% extends 'base.html' %}{% load staticfiles %}
 {% block App %}
-    {% include 'student_top.html' %}
     <div class="container">
+        {% include 'student_top.html' %}
         <ul class="list-group">
             {% for student in object_list %}
                 <li class="list-group-item mb-3">
                     <div class="d-lg-flex justify-content-between align-items-center student-text">
                         <span class="badge badge-primary badge-pill mr-2">Sıra: {{ student.pk }}</span>
-                        <div><b>Adı Soyadı: </b>{{ student.member.user.first_name }} {{ student.member.user.last_name }}</div>
-                        <div><b>Sınıfı: </b>{{ student.klass }}</div>
-                        <div><b>Okul Numarası: </b>{{ student.number }}</div>
-                        <div><b>E-Posta: </b>{{ student.member.user.email }}</div>
-                        <div><b>Dönemi: </b>{{ student.term }}</div>
+                        <div class="mt-1 mb-1"><b>Adı Soyadı: </b>{{ student.member.user.first_name }} {{ student.member.user.last_name }}</div>
+                        <div class="mt-1 mb-1"><b>Okul Numarası: </b>{{ student.number }}</div>
+                        <div class="mt-1 mb-1"><b>Dönemi: </b>{{ student.term }}</div>
                     </div>
                     <div class="mt-lg-4 d-flex align-items-center justify-content-center">
                         <a class="flex-fill btn btn-primary" href="{% url 'student:detail' student.pk %}">Görüntüle</a>
