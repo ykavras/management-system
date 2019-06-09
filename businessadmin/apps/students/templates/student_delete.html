@@ -1,0 +1,29 @@
+{% extends 'base.html' %}{% load staticfiles %}
+{% block styles %}
+    <style type="text/css">
+        label {
+            font-weight: bold
+        }
+    </style>
+{% endblock %}
+{% block App %}
+    <div class="container">
+        <h1 class="mt-4 mb-4 text-center">Sil</h1>
+        <h2 class="text-center h2 mt-4 mb-4">{{ object.member.user.get_full_name }}</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-danger w-100" type="submit">Sil</button>
+        </form>
+        {% for message in messages %}
+            <p class="alert alert-warning">{{ message }}</p>
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript">
+        $('select,input,textarea').addClass('form-control');
+        $('input[name=start_date],input[name=finish_date]').attr('type', 'date');
+        $('p').addClass('form-group');
+    </script>
+{% endblock %}
