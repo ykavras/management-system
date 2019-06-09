@@ -1,5 +1,19 @@
-<div>
-    {% for message in messages %}
-    <p class='{{message.tags}}'> {{message}}</p>
-    {% endfor %}
-</div>
+{% for message in messages %}
+    <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" style="position:absolute;right:20px;top:20px;">
+        <div class="toast-header">
+            {% if message.tags == 'error' %}
+                <div class="rounded mr-2 bg-danger" style="width:20px;height: 20px;"></div>
+            {% else %}
+                <div class="rounded mr-2 bg-{{ message.tags }}" style="width:20px;height: 20px;"></div>
+            {% endif %}
+            <strong class="mr-auto"></strong>
+            <small>Bildirimler</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            <small>{{ message }}</small>
+        </div>
+    </div>
+{% endfor %}
