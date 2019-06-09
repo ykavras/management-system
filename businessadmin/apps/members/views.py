@@ -22,7 +22,7 @@ class MemberCreate(MemberPermissionMixin, PermissionRequiredMixin, CreateView):
     model = User
 
     def get_success_url(self):
-        return reverse_lazy('member:detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy('member:detail', kwargs={'pk': self.object.member.pk})
 
 
 class MemberUpdate(MemberPermissionMixin, PermissionRequiredMixin, UpdateView):
