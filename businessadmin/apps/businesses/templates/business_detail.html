@@ -1,9 +1,7 @@
 {% extends 'base.html' %}{% load staticfiles %}
 {% block App %}
     <div class="container">
-        {% include 'business_top.html' %}
         <h1 class="text-center mt-4 mb-4 h2">{{ object.name }}</h1>
-
         <div class="bg-light rounded box-shadow p-2">
             <div class="media text-muted pt-1">
                 <div class="media-body pb-1 mb-0 small lh-125 border-bottom border-gray">
@@ -92,7 +90,7 @@
 
 
         <div class="bg-light mt-4 mb-4 p-2">
-            <h3 class="text-center pt-3 pb-2">İşletmenin Stajer İhtiyacı</h3>
+            <h3 class="text-center pt-3 pb-2">Bu İşletmenin Stajer İhtiyacı</h3>
             <ul class="list-group">
                 {% for qualification in object.qualificaions.all %}
                     <li class="list-group-item mb-3">

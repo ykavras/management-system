@@ -2,7 +2,7 @@
 {% block App %}
     <div class="background">
         {% if request.user.email %}
-            <h1 class="title">HOŞGELDİNİZ<br>{{ request.user.username }}</h1>
+            <h1 class="title">Hoşgeldin<br>{{ request.user.first_name }}</h1>
         {% else %}
             <h1 class="title">
                 Hoşgeldiniz giriş yapmak için

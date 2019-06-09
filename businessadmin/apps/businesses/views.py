@@ -38,7 +38,7 @@ class BusinessCreate(BusinessPermissionMixin, PermissionRequiredMixin, CreateVie
 
 
 class BusinessUpdate(BusinessPermissionMixin, PermissionRequiredMixin, UpdateView):
-    template_name = 'business_form.html'
+    template_name = 'business_edited.html'
     model = Business
     fields = '__all__'
 
@@ -49,7 +49,7 @@ class BusinessDetail(BusinessPermissionMixin, PermissionRequiredMixin, DetailVie
 
 
 class BusinessDelete(BusinessPermissionMixin, PermissionRequiredMixin, DeleteView):
-    template_name = 'business_form.html'
+    template_name = 'business_delete.html'
     model = Business
     success_url = reverse_lazy('business:list')
 

@@ -8,16 +8,12 @@
 {% endblock %}
 {% block App %}
     <div class="container">
-        <h1 class="text-center mt-4 mb-2">Yeni İşletme Ekle</h1>
-        <ul>
-            {% for business in businesses %}
-                <li>{{ business }}</li>
-            {% endfor %}
-        </ul>
+        <h1 class="text-center mt-4 mb-2">İşletmeyi Sil</h1>
+        <h2 class="text-center h4 mt-4 mb-4">{{ business.name }}</h2>
         <form method="POST" class="mb-2">
             {% csrf_token %}
             {{ form.as_p }}
-            <button class="w-100 btn btn-primary" type="submit">KAYDET</button>
+            <button class="w-100 btn btn-danger" type="submit">Sil</button>
         </form>
         {% for message in messages %}
             <p class="alert alert-warning mt-2">{{ message }}</p>
