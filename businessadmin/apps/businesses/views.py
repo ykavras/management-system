@@ -199,15 +199,15 @@ class ExportStudentView(View):
         ws.append(['ADI', 'Okul Numarası', 'Sınıfı'])
         FIELDS = ['name', 'number', 'klass']
 
-        for item in business.students.all():
+        for item in business.scholarships.all():
             rows = []
             for field in FIELDS:
                 if field == 'name':
-                    rows.append(item.member.__str__())
+                    rows.append(item.student.member.__str__())
                 elif field == 'klass':
-                    rows.append(item.klass.__str__())
+                    rows.append(item.student.klass.__str__())
                 else:
-                    rows.append(model_to_dict(item, fields=field).get(field))
+                    rows.append(item.student.number)
             ws.append(rows)
         wb.save(response)
         return response
