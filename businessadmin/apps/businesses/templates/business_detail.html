@@ -62,9 +62,11 @@
             <div class="media text-muted">
                 <div class="media-body pb-1 small lh-125 border-bottom border-gray">
                     <div class="btn-group mt-1 d-flex">
+                        {% if user.member.teacher.is_chief %}
                         <a class="btn btn-primary"
                            href="{% url 'business:scholarship' object.pk %}"
                            title="Öğrenci Gönder">Öğrenci Gönder</a>
+                        {% endif %}
                         <a class="btn btn-warning" href="{% url 'business:edit' object.pk %}" title="Düzenle">Düzenle</a>
                         <a class="btn btn-danger" href="{% url 'business:delete' object.pk %}" title="Sil">Sil</a>
                     </div>
