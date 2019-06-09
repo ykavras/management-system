@@ -9,6 +9,7 @@
 {% block App %}
     <div class="container">
         <h1 class="mt-4 mb-4 text-center">Yeni Öğrenci Ekle</h1>
+        <a class="btn btn-outline-primary btn-sm mb-2" href="{% url 'members:create' %}">Kullanıcı Ekle</a>
         <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}
