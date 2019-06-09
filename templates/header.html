@@ -4,12 +4,21 @@
 {% url 'student:list' as url_student %}
 {% url 'teacher:list' as url_teacher %}
 {% url 'business:student_thought' user.member.student.scholarship.pk as url_student_thought %}
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-lg">
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-lg">
     <a class="navbar-brand" href="/">
         <img src="{% static 'img/icons/login.svg' %}" width="30" height="30" class="d-inline-block align-items-center" alt="login">
         Yönetim Sistemi
     </a>
-    <div class="collapse navbar-collapse justify-content-md-end" id="navbarNav">
+    <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
             {% if user.is_authenticated %}
                 {% if not user.member.is_student %}
